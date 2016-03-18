@@ -5,6 +5,9 @@
     <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, width=device-width">
     <title>Fatores | coleta</title>
 
+    <meta http-equiv="Content-Security-Policy" content="script-src 'self' 'unsafe-inline' 'unsafe-eval' http://localhost:* www.google-analytics.com data: gap: https://ssl.gstatic.com; style-src 'self' 'unsafe-inline'; media-src 'none'; connect-src https://fatoresweb.azurewebsites.net/ ws:">
+
+
     <link href="lib/ionic/css/ionic.css" rel="stylesheet">
     <link href="css/style.css" rel="stylesheet">
     <style>
@@ -26,6 +29,7 @@
     <script src="lib/ionic/js/ionic.bundle.js"></script>
 
     <!-- cordova script (this will be a 404 during development) -->
+    <script src="lib/ngCordova/dist/ng-cordova.min.js"></script>
     <script src="cordova.js"></script>
 
     <!--angulartics-->

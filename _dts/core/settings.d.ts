@@ -12,6 +12,7 @@ export declare const URLs: {
         cenarios: string;
         cenariosValor: string;
         cenariosDia: string;
+        producao: string;
     };
 };
 export declare const app: {

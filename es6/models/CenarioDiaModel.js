@@ -47,9 +47,10 @@ export class CenarioDiaModel extends BasicModel {
     }
     post(items, time) {
         items = Array.isArray(items) ? items : [items];
+        let cen = new CenarioDiaEntity({});
         return items.forEach(item => {
             if (!item.Fim) {
-                let fim = item.finish(time || new Date().toISOString());
+                let fim = cen.finish.call(item, time || new Date().toISOString());
                 if (!fim) {
                     return;
                 }
@@ -64,8 +65,10 @@ export class CenarioDiaModel extends BasicModel {
                 params: { identify: true }
             })
                 .then(resp => {
-                this.unqueue(item);
-                this.Storage.save(this.type, this.list);
+                if (resp.status === 201 || (resp.status === 500 && resp.data.InnerException.InnerException.ExceptionMessage.indexOf('Cannot insert duplicate key row'))) {
+                    this.unqueue(item);
+                    this.Storage.save(this.type, this.list);
+                }
             })
                 .catch(err => {
                 // let storage = this.Storage.get(this.type);

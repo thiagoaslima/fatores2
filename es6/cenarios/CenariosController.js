@@ -28,7 +28,6 @@ export default class CenariosController {
         });
     }
     init(Session, CenarioModel, CenarioValorModel) {
-        debugger;
         let _cenariosValor = CenarioValorModel.list.filter(item => {
             return Session.tarefa.CenariosValor.indexOf(item.Id) >= 0;
         });

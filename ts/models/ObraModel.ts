@@ -2,7 +2,6 @@ import { URLs } from '../core/settings';
 import { TreeEntity, TreeModel } from './TreeModel';
 
 class ObraEntity extends TreeEntity {
-	public Id: number;
 	public Nome: string;
     public EmpresaId: number;
     public ObraId: number;

@@ -2,7 +2,7 @@ import { URLs } from '../core/settings';
 import { BasicEntity, BasicModel } from './BasicModel';
 
 class CenarioValorEntity extends BasicEntity {
-	public Id: number;
+    public Id: number;
 	public Nome: string;
     public Descricao: string;
     public CenarioId: number;

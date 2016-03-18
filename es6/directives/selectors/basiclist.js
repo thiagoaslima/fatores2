@@ -28,7 +28,8 @@ export function BasicListDirective() {
         controllerAs: 'BasicList',
         template: `<ion-list>
 			<ion-item class="item item-divider">{{::BasicList.title}}</ion-item>
-			<ion-item 
+			<!--
+            <ion-item 
                 ng-if="BasicList.items[0]"
                 class="item"
 				ng-repeat="item in BasicList.items">
@@ -38,14 +39,41 @@ export function BasicListDirective() {
 						{{::item[BasicList.prop]}}
 				</ion-radio>
 			</ion-item>
+            -->
+            
+            <!-- level 1 -->
+            <ion-item
+                ng-if="BasicList.model"
+                ng-click="BasicList.optionsOpen = true"
+                ng-hide="BasicList.optionsOpen">
+                    {{BasicList.model[BasicList.prop]}}
+            </ion-item>
+            
+            <ion-item 
+                ng-if="BasicList.items.length"
+                ng-click="BasicList.optionsOpen = false"
+                ng-show="BasicList.optionsOpen"
+                class="item"
+                ng-repeat="item in BasicList.items">
+				<ion-radio 
+					ng-model="BasicList.model" 
+					ng-value="item">
+						{{::item[BasicList.prop]}}
+				</ion-radio>
+			</ion-item>
+                </ion-item>
 		</ion-list>`
     };
 }
 export function BasicListController($scope) {
+    const ctrl = this;
     let _sortByName = sortByProp(this.prop);
+    window.ctrls = window.ctrls || {};
+    window.ctrls[this.title] = ctrl;
     let _list = [], _ids = [];
     this.items = [];
     this.name = this.title;
+    this.optionsOpen = true;
     Object.defineProperties(this, {
         'fullList': {
             set: function (value) {
@@ -65,5 +93,15 @@ export function BasicListController($scope) {
             }
         }
     });
+    $scope.$watch(() => this.items, (newVal, oldVal) => {
+        if (newVal.length && !newVal[0]) {
+            ctrl.items.length = 0;
+        }
+        this.optionsOpen = true;
+    });
+    if (this.items.length === 1) {
+        this.model = this.items[0];
+        this.optionsOpen = false;
+    }
     return this;
 }

@@ -16,12 +16,10 @@ export default class LoginController {
         })
             .catch(err => {
             let users = [];
-            return loginOffline(username, password)
-                .then(resp => {
-                enterOnApp.bind(this)(resp);
-            }).catch(err => {
-                console.log('Não reconhecido');
-            });
+            const user = loginOffline(username, password);
+            if (user) {
+                enterOnApp.bind(this)(user);
+            }
         });
     }
 }

@@ -4,11 +4,11 @@ import { BasicEntity, BasicModel } from './BasicModel';
 class AtividadeTarefaEntity extends BasicEntity {
     public Id: number;
 	public AtividadeId: number;
-	public Atividade: null;
+	public Atividade = null;
 	public TarefaId: number;
-	public Tarefa: null;
+	public Tarefa = null;
 	public UserId: string;
-	public Usuario: null;
+	public Usuario = null;
 	public ParticipaQS: boolean;
 	public PercentualQS: number;
 	public PercentualQS2: number;

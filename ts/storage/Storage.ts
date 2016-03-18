@@ -22,10 +22,12 @@ export default class Storage {
 
 	public compact(value: any[]|Object):any[] {
 		return this.LZString.compressToUTF16(JSON.stringify(value));
+		// return JSON.stringify(value);
 	}
 	
 	public descompact(value: any[]):any[] {
 		return JSON.parse(this.LZString.decompressFromUTF16(value));
+		// return JSON.parse(value);
 	}
 	
 	public save(type: string, values: any[]):void {
@@ -44,5 +46,9 @@ export default class Storage {
 		
 		return this._cache[type] || null;
 	}
+    
+    public erase(type: string):void {
+        this.local.removeItem(type);
+    }
 	
 }

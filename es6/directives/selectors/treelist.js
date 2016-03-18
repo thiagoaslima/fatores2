@@ -32,12 +32,23 @@ export function TreeListDirective() {
         },
         controller: ['$scope', '$element', TreeListController],
         controllerAs: 'TreeList',
-        template: `<ion-list>
+        template: `
+            <ion-list>
                 <ion-item
                     class="item item-divider"
-                    ng-if='TreeList.title'>{{::TreeList.title}}</ion-item>
+                    ng-show='TreeList.title'>
+                    {{::TreeList.title}}
+                </ion-item>
+                
+                <!-- level 1 -->
+                <ion-item
+                    ng-click="TreeList.toSelect(0)"
+                    ng-show="TreeList.selecteds[0]">
+                    {{TreeList.selecteds[0].Nome}}
+                </ion-item>
+                
                 <ion-item 
-                    ng-if="TreeList.items[0]"
+                    ng-show="TreeList.selecting(0)"
                     class="item"
                     ng-repeat="item in TreeList.items">
                     <ion-radio 
@@ -45,10 +56,19 @@ export function TreeListDirective() {
                         ng-value="item">
                             {{::item[TreeList.prop]}}
                     </ion-radio>
+                 </ion-item>
                     
                     
-                    <!-- level 2 -->
-                    <ion-list ng-if="TreeList.selecteds[0] === item">
+                <!-- level 2 -->
+                <ion-item
+                    ng-click="TreeList.toSelect(1)"
+                    ng-show="TreeList.selecteds[1]">
+                    {{TreeList.selecteds[1].Nome}}
+                </ion-item>
+                
+                <ion-item 
+                    ng-show="TreeList.selecting(1)""> 
+                    <ion-list>
                         <ion-item
                             class="item"
                             ng-repeat="item in TreeList.children[0]">
@@ -57,59 +77,60 @@ export function TreeListDirective() {
                                 ng-value="item">
                                     {{::item[TreeList.prop]}}
                             </ion-radio>
-                            
-                            
-                            
-                            <!-- level 3 -->
-                            <ion-list ng-if="TreeList.selecteds[1] === item">
-                                <ion-item
-                                    class="item"
-                                    ng-repeat="item in TreeList.children[1]">
-                                    <ion-radio 
-                                       
-                                        ng-click="TreeList.select(item, 2)" 
-                                        ng-value="item">
-                                            {{::item[TreeList.prop]}}
-                                    </ion-radio>
-                                    
-                                    
-                                    
-                                    
-                                    <!-- level 4 -->
-                                    <ion-list ng-if="TreeList.selecteds[2] === item">
-                                        <ion-item
-                                            class="item"
-                                            ng-repeat="item in TreeList.children[2]">
-                                            <ion-radio 
-                                                ng-click="TreeList.select(item, 3)" 
-                                                ng-value="item">
-                                                    {{::item[TreeList.prop]}}
-                                            </ion-radio>
-                                        </ion-item>
-                                    </ion-list>
-                                    <!-- /level 4 -->
-                                    
-                                    
-                                    
-                                    
-                                </ion-item><!-- /level 3 -->
-                            </ion-list>
-                            
-                            
-                            
-                            
-                            
-                        </ion-item><!-- /level 2 -->
+                        </ion-item>
                     </ion-list>
-                    
-                    
-                    
                 </ion-item>
+                            
+                            
+                <!-- level 3 -->
+                <ion-item
+                    ng-click="TreeList.toSelect(2)"
+                    ng-show="TreeList.selecteds[2]">
+                    {{TreeList.selecteds[2].Nome}}
+                </ion-item>
+                
+                <ion-item ng-show="TreeList.selecting(2)"> 
+                    <ion-list>
+                        <ion-item
+                            class="item"
+                            ng-repeat="item in TreeList.children[1]">
+                            <ion-radio 
+                                ng-click="TreeList.select(item, 2)" 
+                                ng-value="item">
+                                    {{::item[TreeList.prop]}}
+                            </ion-radio>
+                        </ion-item>
+                    </ion-list>
+                </ion-item>
+
+
+                <!-- level 4 -->
+                <ion-item
+                    ng-click="TreeList.toSelect(3)"
+                    ng-show="TreeList.selecteds[3]">
+                    {{TreeList.selecteds[3].Nome}}
+                </ion-item>
+                
+                <ion-item ng-show="TreeList.selecting(3)">
+                    <ion-list >
+                        <ion-item
+                            class="item"
+                            ng-repeat="item in TreeList.children[2]">
+                            <ion-radio 
+                                ng-click="TreeList.select(item, 3)" 
+                                ng-value="item">
+                                    {{::item[TreeList.prop]}}
+                            </ion-radio>
+                        </ion-item>
+                    </ion-list>
+                </ion-item>
+                
             </ion-list>`
     };
 }
 export function TreeListController($scope, $elem) {
     let _sortByNome = sortByProp(this.prop);
+    let _selecting = 0;
     let _list = [], _ids = [], _full = this.fullList || [], _elem;
     Object.defineProperties(this, {
         'fullList': {
@@ -136,12 +157,14 @@ export function TreeListController($scope, $elem) {
     this.items = this.items || [];
     this.children = [];
     this.select = function (item, lvl) {
+        _selecting = lvl + 1;
         if (this.selecteds.length > lvl) {
             this.selecteds.length = lvl;
             this.children.length = lvl;
         }
         if (!item.children.length) {
             this.model = item;
+            this.selecteds.push(item);
             return item;
         }
         else {
@@ -155,6 +178,15 @@ export function TreeListController($scope, $elem) {
             arr.sort(_sortByNome);
             this.children.push(arr);
         });
+    };
+    this.toSelect = function (lvl) {
+        _selecting = lvl;
+    };
+    this.selecting = function (level) {
+        if (level === 0) {
+            return _selecting === level;
+        }
+        return _selecting === level && this.selecteds[level - 1] && this.selecteds[level - 1].children.length;
     };
     return this;
 }

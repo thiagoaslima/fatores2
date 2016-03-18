@@ -44,17 +44,16 @@ export default class UserModel {
         });
     }
     checkCredentials(users, username, password) {
-        return this.$q((resolve, reject) => {
-            let pwd = this.encrypt(password);
-            let user = users.filter(user => {
-                return user.UserName === username && user.Password === pwd;
-            });
-            if (user.length) {
-                resolve(this.setUser(user[0], password));
-            }
-            else {
-                reject(new Error('Invalid arguments'));
-            }
+        let pwd = this.encrypt(password);
+        let user = users.filter(user => {
+            return user.UserName === username && user.Password === pwd;
         });
+        if (user.length) {
+            return this.setUser(user[0], password);
+            ;
+        }
+        else {
+            throw new Error('Invalid arguments');
+        }
     }
 }

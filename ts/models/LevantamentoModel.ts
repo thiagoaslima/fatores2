@@ -93,8 +93,8 @@ export class LevantamentoModel extends BasicModel {
     }
 
     create(item) {
-        let levantamento = new this._model(item);
-
+        let levantamento = new this._model(item);;
+        
         if (this._map[levantamento.Id] === undefined) {
             this._map[levantamento.Id] = levantamento;
             this._list.push(levantamento);
@@ -108,10 +108,12 @@ export class LevantamentoModel extends BasicModel {
 
     post(items, time) {
         items = Array.isArray(items) ? items : [items];
+        let lev = new LevantamentoEntity({});
+        
         return items.forEach(item => {
             
             if (!item.Fim) {
-                let fim = item.finish({
+                let fim = lev.finish.call(item, {
                     DuracaoMinima: 30,
                     DuracaoMaxima: Infinity
                 }, time || new Date().toISOString());
@@ -132,8 +134,10 @@ export class LevantamentoModel extends BasicModel {
                     params: {identify: true } 
                 })
                 .then(resp => {
-                    this.unqueue(item);
-                    this.Storage.save(this.type, this.list);
+                    if (resp.status === 201 || (resp.status === 500 && resp.data.InnerException.InnerException.ExceptionMessage.indexOf('Cannot insert duplicate key row') )) {
+                        this.unqueue(item);
+                        this.Storage.save(this.type, this.list);    
+                    }
                 })
                 .catch(err => {
                     // let storage = this.Storage.get(this.type);

@@ -46,37 +46,37 @@ export default class AtividadesController {
                 return;
             }
 
-            let base = {
-                UserId: this.Session.user.UserId,
-                EmpresaId: this.Session.empresa.Id,
-                ObraId: this.Session.obra.Id,
-                TarefaId: this.Session.tarefa.Id,
-                AtividadeId: this.atividadeSelected.Id,
-                AtividadeTarefaId: this.Session.atividadesTarefa.filter(item => {
-                    return item.AtividadeId === this.atividadeSelected.Id;
-                })[0].Id
-            };
-
             membros.forEach(membro => {
-                membro.Atividade.removeMember(membro);
+                membro.Atividade.removeMember(membro);                
 
-                if (!membro.Levantamento) {
-                    return;
-                }
-
-                if (!membro.Levantamento.finish(membro.Atividade)) {
+                if (membro.Levantamento && !membro.Levantamento.finish(membro.Atividade)) {
                     this.LevantamentoModel.cancel(membro.Levantamento);
                 }
             });
 
-            let _lev = assign({}, base, {
-                FuncaoId: membros[0].Funcao.Id,
-                QuantidadeColaboradores: membros.length,
-                Colaboradores: membros.map(membro => membro.Nome).join(' '),
-                ExperienciaFuncao: membros.reduce((total, membro) => total + membro.Experiencia, 0),
-                Comentario: ''
-            });
+            let base, _lev;
 
+            if (this.atividadeSelected.Id) {
+                base = {
+                    UserId: this.Session.user.UserId,
+                    EmpresaId: this.Session.empresa.Id,
+                    ObraId: this.Session.obra.Id,
+                    TarefaId: this.Session.tarefa.Id,
+                    AtividadeId: this.atividadeSelected.Id,
+                    AtividadeTarefaId: this.Session.atividadesTarefa.filter(item => {
+                        return item.AtividadeId === this.atividadeSelected.Id;
+                    })[0].Id
+                };
+
+                _lev = assign({}, base, {
+                    FuncaoId: membros[0].Funcao.Id,
+                    QuantidadeColaboradores: membros.length,
+                    Colaboradores: membros.map(membro => membro.Nome).join(' '),
+                    ExperienciaFuncao: membros.reduce((total, membro) => total + membro.Experiencia, 0),
+                    Comentario: ''
+                });
+            }
+            
             let levantamento = (this.atividadeSelected.Id === 0) ?
                 null : this.LevantamentoModel.create(_lev);
 
@@ -88,7 +88,6 @@ export default class AtividadesController {
         });
 
         this.reset();
-
         this.$state.go('recursos');
     }
 

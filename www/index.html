@@ -44,5 +44,24 @@
   <body ng-app="app">
     <ion-nav-bar class="bar bar-header bar-balanced"></ion-nav-bar>
     <ion-nav-view></ion-nav-view>
+    
+    <script id="recursos-confirm.html" type="text/ng-template">
+        <ion-modal-view>
+            <ion-header-bar>
+                <h1 class="title">Finalizar o levantamento</h1>
+            </ion-header-bar>
+            <ion-content>
+                <h3>Qual o horário de fechamento da sessão?</h3>
+                <div class="row">
+                    <div class="col"><label>Hora: <input type="number" ng-value="hora" min="0" max="24"></label></div>
+                    <div class="col"><label>Minutos: <input type="number" ng-value="minutos" min="0" max="59"></label></div>
+                </div>
+                <div class="row">
+                    <button class="col" type="button" ng-click="fechar()">Continuar levantamento</button>
+                    <button class="col" type="button" ng-click="concluir()">Concluir levantamento</button>
+                </div>
+            </ion-content>
+        </ion-modal-view>
+    </script>
   </body>
 </html>

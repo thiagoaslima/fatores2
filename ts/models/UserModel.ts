@@ -60,8 +60,7 @@ export default class UserModel {
 		});
 	}
 
-	checkCredentials(users: fatores.entidades.User[], username: string, password: string): Promise<fatores.entidades.User> {
-		return this.$q( (resolve, reject) => {
+	checkCredentials(users: fatores.entidades.User[], username: string, password: string): fatores.entidades.User {
 			let pwd = this.encrypt(password);
 
 			let user = users.filter(user => {
@@ -69,10 +68,9 @@ export default class UserModel {
 			});
 	
 			if (user.length) {
-				resolve(this.setUser(user[0], password));
+				return this.setUser(user[0], password));
 			} else {
-				reject(new Error('Invalid arguments'));
+				throw new Error('Invalid arguments');
 			}
-		});
 	}
 }

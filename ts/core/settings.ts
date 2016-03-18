@@ -12,7 +12,8 @@ export const URLs = {
         levantamentos: '/levantamento',
         cenarios: '/cenario',
         cenariosValor: '/cenariovalor',
-        cenariosDia: '/cenariodia' 
+        cenariosDia: '/cenariodia',
+        producao: '/producao'
 	}
 };
 

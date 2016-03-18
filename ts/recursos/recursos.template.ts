@@ -31,8 +31,7 @@ export default `<ion-view title="Recursos">
                         <h2>{{::membro.Nome}}</h2>
                         <small>{{::membro.Funcao.Nome}}</small>
                     </div>
-                    <i class="icon ion-android-textsms"></ion>
-                </div>
+                </ion-list>
             </ion-item>
         </ion-list>
     </ion-content>

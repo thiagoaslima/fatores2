@@ -1,4 +1,6 @@
 export default class Session {
+    private $window;
+    private $injector;
     started: boolean;
     DataAtualizacao: string;
     user: fatores.entidades.User;
@@ -9,7 +11,8 @@ export default class Session {
     equipe: any;
     atividades: any;
     atividadesTarefa: any;
-    constructor();
+    AtributosProducao: any;
+    constructor($window: any, $injector: any);
     setUser(user: any): void;
     setConfig(selecteds: any): void;
     setAtividades(atividades: any): void;

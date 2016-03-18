@@ -9,4 +9,5 @@ export default class Storage {
     descompact(value: any[]): any[];
     save(type: string, values: any[]): void;
     get(type: string): any[];
+    erase(type: string): void;
 }

@@ -31,6 +31,8 @@ var _CenarioValorModel = require('./models/CenarioValorModel');
 
 var _CenarioDiaModel = require('./models/CenarioDiaModel');
 
+var _ProducaoModel = require('./models/ProducaoModel');
+
 var _Session = require('./core/Session');
 
 var _Session2 = _interopRequireDefault(_Session);
@@ -59,6 +61,14 @@ var _CenariosController = require('./cenarios/CenariosController');
 
 var _CenariosController2 = _interopRequireDefault(_CenariosController);
 
+var _ProducaoController = require('./producao/ProducaoController');
+
+var _ProducaoController2 = _interopRequireDefault(_ProducaoController);
+
+var _ProdutoController = require('./producao/ProdutoController');
+
+var _ProdutoController2 = _interopRequireDefault(_ProdutoController);
+
 var _basiclist = require('./directives/selectors/basiclist');
 
 var _treelist = require('./directives/selectors/treelist');
@@ -77,9 +87,7 @@ var _loading2 = _interopRequireDefault(_loading);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-var angular = window.angular;
-
-angular.module('app', ['ionic', 'ngCordova', 'angulartics', 'angulartics.google.analytics.cordova']).directive('basicList', _basiclist.BasicListDirective).directive('treeList', _treelist.TreeListDirective).service('UserModel', ['$window', '$q', '$http', 'Storage', _UserModel2.default]).controller('LoginController', ['$state', 'UserModel', 'Storage', 'Session', _loginController2.default]).service('Session', _Session2.default).service('Storage', ['$window', _storage2.default]).service('EmpresaModel', ['$http', '$q', 'Storage', _EmpresaModel.EmpresaModel]).service('ObraModel', ['$http', '$q', 'Storage', _ObraModel.ObraModel]).service('TarefaModel', ['$http', '$q', 'Storage', _TarefaModel.TarefaModel]).service('FuncaoModel', ['$http', '$q', 'Storage', _FuncaoModel.FuncaoModel]).service('AtividadeModel', ['$http', '$q', 'Storage', _AtividadeModel.AtividadeModel]).service('AtividadeTarefaModel', ['$http', '$q', 'Storage', _AtividadeTarefaModel2.default]).service('CenarioModel', ['$http', '$q', 'Storage', _CenarioModel.CenarioModel]).service('CenarioValorModel', ['$http', '$q', 'Storage', _CenarioValorModel.CenarioValorModel]).service('LevantamentoModel', ['$http', '$q', 'Storage', '$httpParamSerializer', _LevantamentoModel.LevantamentoModel]).service('CenarioDiaModel', ['$http', '$q', 'Storage', '$httpParamSerializer', _CenarioDiaModel.CenarioDiaModel]).controller('ConfigurationController', ['$scope', '$ionicHistory', '$state', 'Session', 'UserModel', 'EmpresaModel', 'ObraModel', 'TarefaModel', 'AtividadeModel', 'AtividadeTarefaModel', _ConfigurationController2.default]).controller('EquipeController', ['Session', 'FuncaoModel', _EquipeController2.default]).controller('RecursosController', ['$q', '$state', 'Session', 'AtividadeModel', 'LevantamentoModel', 'CenarioDiaModel', _RecursosController2.default]).controller('AtividadesController', ['$state', 'Session', 'AtividadeModel', 'LevantamentoModel', _AtividadesController2.default]).controller('CenariosController', ['$scope', '$state', 'Session', 'CenarioModel', 'CenarioValorModel', 'CenarioDiaModel', _CenariosController2.default]).config(['$stateProvider', '$urlRouterProvider', _routes2.default]).service('httpInterceptor', ['Session', _login2.default]).service('loadingStatus', ['$injector', _loading2.default]).config(['$httpProvider', function ($httpProvider) {
+angular.module('app', ['ionic', 'ngCordova', 'angulartics', 'angulartics.google.analytics.cordova']).directive('basicList', _basiclist.BasicListDirective).directive('treeList', _treelist.TreeListDirective).service('UserModel', ['$window', '$q', '$http', 'Storage', _UserModel2.default]).controller('LoginController', ['$state', 'UserModel', 'Storage', 'Session', _loginController2.default]).service('Session', _Session2.default).service('Storage', ['$window', _storage2.default]).service('EmpresaModel', ['$http', '$q', 'Storage', _EmpresaModel.EmpresaModel]).service('ObraModel', ['$http', '$q', 'Storage', _ObraModel.ObraModel]).service('TarefaModel', ['$http', '$q', 'Storage', _TarefaModel.TarefaModel]).service('FuncaoModel', ['$http', '$q', 'Storage', _FuncaoModel.FuncaoModel]).service('AtividadeModel', ['$http', '$q', 'Storage', _AtividadeModel.AtividadeModel]).service('AtividadeTarefaModel', ['$http', '$q', 'Storage', _AtividadeTarefaModel2.default]).service('CenarioModel', ['$http', '$q', 'Storage', _CenarioModel.CenarioModel]).service('CenarioValorModel', ['$http', '$q', 'Storage', _CenarioValorModel.CenarioValorModel]).service('LevantamentoModel', ['$http', '$q', 'Storage', '$httpParamSerializer', _LevantamentoModel.LevantamentoModel]).service('CenarioDiaModel', ['$http', '$q', 'Storage', '$httpParamSerializer', _CenarioDiaModel.CenarioDiaModel]).service('ProducaoModel', ['$http', '$q', 'Storage', '$httpParamSerializer', _ProducaoModel.ProducaoModel]).controller('ConfigurationController', ['$scope', '$ionicHistory', '$state', 'Session', 'UserModel', 'EmpresaModel', 'ObraModel', 'TarefaModel', 'AtividadeModel', 'AtividadeTarefaModel', _ConfigurationController2.default]).controller('EquipeController', ['Session', 'FuncaoModel', _EquipeController2.default]).controller('RecursosController', ['$q', '$state', '$scope', '$ionicPopup', 'Session', 'AtividadeModel', 'LevantamentoModel', 'CenarioDiaModel', 'ProducaoModel', _RecursosController2.default]).controller('AtividadesController', ['$state', 'Session', 'AtividadeModel', 'LevantamentoModel', _AtividadesController2.default]).controller('CenariosController', ['$scope', '$state', 'Session', 'CenarioModel', 'CenarioValorModel', 'CenarioDiaModel', _CenariosController2.default]).controller('ProducaoController', ['$state', 'Session', 'ProducaoModel', _ProducaoController2.default]).controller('ProdutoController', ['$state', 'Session', 'ProducaoModel', 'Storage', 'produto', _ProdutoController2.default]).config(['$stateProvider', '$urlRouterProvider', _routes2.default]).service('httpInterceptor', ['Session', _login2.default]).service('loadingStatus', ['$injector', _loading2.default]).config(['$httpProvider', function ($httpProvider) {
     $httpProvider.defaults.timeout = 2000;
     $httpProvider.interceptors.push('httpInterceptor');
     $httpProvider.interceptors.push('loadingStatus');
@@ -110,50 +118,53 @@ angular.module('app', ['ionic', 'ngCordova', 'angulartics', 'angulartics.google.
     });
 }]).run(['$rootScope', '$state', 'Session', function ($rootScope, $state, Session) {
     $rootScope.$on('$stateChangeStart', function (event, toState, toParams, fromState, fromParams) {
-        //console.log('start', arguments);
+        console.log('start', arguments);
         if (toState.restrict && !Session.started) {
             event.preventDefault(), $state.go('login');
         }
     });
     $rootScope.$on('$stateNotFound', function (event, unfoundState, fromState, fromParams) {
-        /*console.log('not found');
+        console.log('not found');
         console.log(unfoundState.to); // "lazy.state"
         console.log(unfoundState.toParams); // {a:1, b:2}
         console.log(unfoundState.options); // {inherit:false} + default options
-        */
     });
     $rootScope.$on('$stateChangeSuccess', function (event, toState, toParams, fromState, fromParams) {
-        //console.log('success', arguments);
+        console.log('success', arguments);
     });
     $rootScope.$on('$stateChangeError', function (event, toState, toParams, fromState, fromParams, error) {
-        // console.log('error', arguments);
+        console.log('error', arguments);
     });
     $rootScope.$on('$viewContentLoading', function (event, viewConfig) {
         // Access to all the view config properties.
         // and one special property 'targetView'
         // viewConfig.targetView
-        // console.log('loading', arguments);
+        console.log('loading', arguments);
     });
     $rootScope.$on('$viewContentLoaded', function (event) {
-        // console.log('loaded', arguments);
+        console.log('loaded', arguments);
     });
-}]);
+}]); /* globals angular: true */
+
 try {
     angular.module('app').config(['googleAnalyticsCordovaProvider', function (googleAnalyticsCordovaProvider) {
+        console.log('analytics', googleAnalyticsCordovaProvider);
         googleAnalyticsCordovaProvider.trackingId = 'UA-71620104-1';
         googleAnalyticsCordovaProvider.period = 20; // default: 10 (in seconds)
         googleAnalyticsCordovaProvider.debug = true; // default: false
     }]);
-} catch (err) {}
+} catch (err) {
+    console.warn(err);
+}
 
-},{"./atividades/AtividadesController":2,"./cenarios/CenariosController":4,"./configuration/ConfigurationController":6,"./core/Session":8,"./core/loading.interceptor":9,"./core/routes":10,"./directives/selectors/basiclist":12,"./directives/selectors/treelist":13,"./equipe/EquipeController":14,"./login/login.interceptors":16,"./login/loginController":18,"./models/AtividadeModel":19,"./models/AtividadeTarefaModel":20,"./models/CenarioDiaModel":22,"./models/CenarioModel":23,"./models/CenarioValorModel":24,"./models/EmpresaModel":25,"./models/FuncaoModel":26,"./models/LevantamentoModel":27,"./models/ObraModel":28,"./models/TarefaModel":29,"./models/UserModel":31,"./recursos/RecursosController":32,"./storage/storage":35}],2:[function(require,module,exports){
+},{"./atividades/AtividadesController":2,"./cenarios/CenariosController":4,"./configuration/ConfigurationController":6,"./core/Session":8,"./core/loading.interceptor":9,"./core/routes":10,"./directives/selectors/basiclist":12,"./directives/selectors/treelist":13,"./equipe/EquipeController":14,"./login/login.interceptors":16,"./login/loginController":18,"./models/AtividadeModel":19,"./models/AtividadeTarefaModel":20,"./models/CenarioDiaModel":22,"./models/CenarioModel":23,"./models/CenarioValorModel":24,"./models/EmpresaModel":25,"./models/FuncaoModel":26,"./models/LevantamentoModel":27,"./models/ObraModel":28,"./models/ProducaoModel":29,"./models/TarefaModel":30,"./models/UserModel":32,"./producao/ProducaoController":33,"./producao/ProdutoController":34,"./recursos/RecursosController":37,"./storage/storage":40}],2:[function(require,module,exports){
 'use strict';
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 Object.defineProperty(exports, "__esModule", {
     value: true
 });
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 var _object = require('../utils/object.assign');
 
@@ -205,36 +216,37 @@ var AtividadesController = function () {
                 if (membros.length === 1 && membros[0].Atividade === _this.atividadeSelected) {
                     return;
                 }
-                var base = {
-                    UserId: _this.Session.user.UserId,
-                    EmpresaId: _this.Session.empresa.Id,
-                    ObraId: _this.Session.obra.Id,
-                    TarefaId: _this.Session.tarefa.Id,
-                    AtividadeId: _this.atividadeSelected.Id,
-                    AtividadeTarefaId: _this.Session.atividadesTarefa.filter(function (item) {
-                        return item.AtividadeId === _this.atividadeSelected.Id;
-                    })[0].Id
-                };
                 membros.forEach(function (membro) {
                     membro.Atividade.removeMember(membro);
-                    if (!membro.Levantamento) {
-                        return;
-                    }
-                    if (!membro.Levantamento.finish(membro.Atividade)) {
+                    if (membro.Levantamento && !membro.Levantamento.finish(membro.Atividade)) {
                         _this.LevantamentoModel.cancel(membro.Levantamento);
                     }
                 });
-                var _lev = (0, _object2.default)({}, base, {
-                    FuncaoId: membros[0].Funcao.Id,
-                    QuantidadeColaboradores: membros.length,
-                    Colaboradores: membros.map(function (membro) {
-                        return membro.Nome;
-                    }).join(' '),
-                    ExperienciaFuncao: membros.reduce(function (total, membro) {
-                        return total + membro.Experiencia;
-                    }, 0),
-                    Comentario: ''
-                });
+                var base = void 0,
+                    _lev = void 0;
+                if (_this.atividadeSelected.Id) {
+                    base = {
+                        UserId: _this.Session.user.UserId,
+                        EmpresaId: _this.Session.empresa.Id,
+                        ObraId: _this.Session.obra.Id,
+                        TarefaId: _this.Session.tarefa.Id,
+                        AtividadeId: _this.atividadeSelected.Id,
+                        AtividadeTarefaId: _this.Session.atividadesTarefa.filter(function (item) {
+                            return item.AtividadeId === _this.atividadeSelected.Id;
+                        })[0].Id
+                    };
+                    _lev = (0, _object2.default)({}, base, {
+                        FuncaoId: membros[0].Funcao.Id,
+                        QuantidadeColaboradores: membros.length,
+                        Colaboradores: membros.map(function (membro) {
+                            return membro.Nome;
+                        }).join(' '),
+                        ExperienciaFuncao: membros.reduce(function (total, membro) {
+                            return total + membro.Experiencia;
+                        }, 0),
+                        Comentario: ''
+                    });
+                }
                 var levantamento = _this.atividadeSelected.Id === 0 ? null : _this.LevantamentoModel.create(_lev);
                 membros.forEach(function (membro) {
                     membro.Levantamento = levantamento;
@@ -252,7 +264,7 @@ var AtividadesController = function () {
 
 exports.default = AtividadesController;
 
-},{"../utils/object.assign":36}],3:[function(require,module,exports){
+},{"../utils/object.assign":41}],3:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -263,11 +275,11 @@ exports.default = "<ion-view title=\"Atividades\">\n    <ion-nav-buttons side=\"
 },{}],4:[function(require,module,exports){
 'use strict';
 
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
 Object.defineProperty(exports, "__esModule", {
     value: true
 });
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 var _object = require('../utils/object.assign');
 
@@ -318,7 +330,6 @@ var CenariosController = function () {
         value: function init(Session, CenarioModel, CenarioValorModel) {
             var _this2 = this;
 
-            debugger;
             var _cenariosValor = CenarioValorModel.list.filter(function (item) {
                 return Session.tarefa.CenariosValor.indexOf(item.Id) >= 0;
             });
@@ -385,7 +396,7 @@ var CenariosController = function () {
 
 exports.default = CenariosController;
 
-},{"../utils/object.assign":36}],5:[function(require,module,exports){
+},{"../utils/object.assign":41}],5:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -396,11 +407,11 @@ exports.default = "<ion-view title=\"Cenários\">\n    \n    <div class=\"tabs t
 },{}],6:[function(require,module,exports){
 "use strict";
 
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
 Object.defineProperty(exports, "__esModule", {
     value: true
 });
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
@@ -501,7 +512,7 @@ var ConfigurationController = function () {
         value: function init() {
             var _this = this;
 
-            var Obras = undefined;
+            var Obras = void 0;
             var listaObras = this.ObraModel.get(this.UserModel.user.Obras);
             listaObras.then(function (lista) {
                 _this.selectables.obras = _this.ObraModel.getLevel(lista);
@@ -559,22 +570,30 @@ exports.default = "<ion-view title=\"Configuração\">\n    <ion-nav-buttons sid
 },{}],8:[function(require,module,exports){
 'use strict';
 
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
 Object.defineProperty(exports, "__esModule", {
     value: true
 });
 
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
 var _AtividadeModel = require('../models/AtividadeModel');
+
+var _transformLists = require('../utils/transformLists');
+
+var _sorts = require('../utils/sorts');
 
 function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } else { return Array.from(arr); } }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
+var _sortByNome = (0, _sorts.sortByProp)('Nome');
+
 var Session = function () {
-    function Session() {
+    function Session($window, $injector) {
         _classCallCheck(this, Session);
 
+        this.$window = $window;
+        this.$injector = $injector;
         this.DataAtualizacao = '';
         this.started = false;
         this.user = null;
@@ -585,6 +604,7 @@ var Session = function () {
         this.equipe = [];
         this.atividades = [_AtividadeModel.Aguardando];
         this.atividadesTarefa = [];
+        this.AtributosProducao = [];
     }
 
     _createClass(Session, [{
@@ -595,10 +615,34 @@ var Session = function () {
     }, {
         key: 'setConfig',
         value: function setConfig(selecteds) {
+            var _this = this;
+
             this.empresa = selecteds.empresa;
             this.obra = selecteds.obra;
             this.contratada = selecteds.contratada;
             this.tarefa = selecteds.tarefa;
+            var CenarioModel = this.$injector.get('CenarioModel');
+            var CenarioValorModel = this.$injector.get('CenarioValorModel');
+            var getValores = CenarioValorModel.get(this.tarefa.AtributosProducao);
+            var valores = void 0;
+            getValores.then(function (resp) {
+                valores = resp;
+                var atributosId = valores.map(function (valor) {
+                    return valor.CenarioId;
+                }).filter(function (valor, idx, arr) {
+                    return arr.indexOf(valor) === idx;
+                }).sort();
+                return CenarioModel.get(atributosId);
+            }).then(function (atributos) {
+                var map = (0, _transformLists.mapify)(atributos);
+                valores.forEach(function (valor) {
+                    map[valor.CenarioId].Valores.push(valor);
+                });
+                _this.AtributosProducao = atributos.map(function (atributo) {
+                    atributo.Valores.sort(_sortByNome);
+                    return atributo;
+                }).sort(_sortByNome);
+            });
         }
     }, {
         key: 'setAtividades',
@@ -643,6 +687,7 @@ var Session = function () {
         key: 'end',
         value: function end() {
             this.started = false;
+            this.$window.location.reload(true);
         }
     }]);
 
@@ -651,7 +696,7 @@ var Session = function () {
 
 exports.default = Session;
 
-},{"../models/AtividadeModel":19}],9:[function(require,module,exports){
+},{"../models/AtividadeModel":19,"../utils/sorts":42,"../utils/transformLists":43}],9:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -736,6 +781,14 @@ var _cenarios = require('../cenarios/cenarios.template');
 
 var _cenarios2 = _interopRequireDefault(_cenarios);
 
+var _producao = require('../producao/producao.template');
+
+var _producao2 = _interopRequireDefault(_producao);
+
+var _produto = require('../producao/produto.template');
+
+var _produto2 = _interopRequireDefault(_produto);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function router($stateProvider, $urlRouterProvider) {
@@ -749,8 +802,15 @@ function router($stateProvider, $urlRouterProvider) {
     var fetch = function fetch(model) {
         var attempt = arguments.length <= 1 || arguments[1] === undefined ? 0 : arguments[1];
 
-        return model.fetch().finally(function (resp) {
-            console.log(model.type, attempt);
+        return model.fetch().then(function (resp) {
+            if (model.list.length) {
+                return model;
+            }
+            if (attempt > 5) {
+                throw new Error('Não foi possui recuperar dados de ' + model.type);
+            }
+            return fetch(model, ++attempt);
+        }).catch(function (err) {
             if (model.list.length) {
                 return model;
             }
@@ -805,6 +865,25 @@ function router($stateProvider, $urlRouterProvider) {
                     }],
                     cenariosValor: ['CenarioValorModel', function (model) {
                         return fetch(model);
+                    }],
+                    producao: ['ProducaoModel', 'Storage', function (ProducaoModel, Storage) {
+                        var producao = Storage.get('producao');
+                        if (!producao) {
+                            return true;
+                        }
+                        return ProducaoModel.post(producao, new Date().toISOString());
+                    }],
+                    cenariosDia: ['CenarioDiaModel', 'Storage', function (CenarioDiaModel, Storage) {
+                        if (CenarioDiaModel.list.length) {
+                            return CenarioDiaModel.post(CenarioDiaModel.list, new Date().toISOString());
+                        }
+                        return true;
+                    }],
+                    levantamentos: ['LevantamentoModel', 'Storage', function (LevantamentoModel, Storage) {
+                        if (LevantamentoModel.list.length) {
+                            return LevantamentoModel.post(LevantamentoModel.list, new Date().toISOString());
+                        }
+                        return true;
                     }]
                 }
             }
@@ -849,12 +928,56 @@ function router($stateProvider, $urlRouterProvider) {
                 controllerAs: 'CenariosCtrl'
             }
         }
+    }).state('producao', {
+        parent: 'menu',
+        url: '/producao',
+        views: {
+            'side-menu': {
+                template: _producao2.default,
+                controller: 'ProducaoController',
+                controllerAs: 'ProducaoCtrl'
+            }
+        }
+    }).state('produto-novo', {
+        parent: 'menu',
+        url: '/produto',
+        views: {
+            'side-menu': {
+                template: _produto2.default,
+                controller: 'ProdutoController',
+                controllerAs: 'ProdutoCtrl',
+                resolve: {
+                    produto: function produto() {
+                        return Object.create(null);
+                    }
+                }
+            }
+        }
+    }).state('produto', {
+        parent: 'menu',
+        url: '/produto/:id',
+        views: {
+            'side-menu': {
+                template: _produto2.default,
+                controller: 'ProdutoController',
+                controllerAs: 'ProdutoCtrl',
+                params: { id: 0 },
+                resolve: {
+                    produto: ['$stateParams', 'ProducaoModel', function ($stateParams, ProducaoModel) {
+                        var id = parseInt($stateParams.id, 10);
+                        return ProducaoModel.get(id).then(function (resp) {
+                            return resp[0];
+                        });
+                    }]
+                }
+            }
+        }
     });
     // if none of the above states are matched, use this as the fallback
     $urlRouterProvider.otherwise('/login');
 }
 
-},{"../atividades/atividades.template":3,"../cenarios/cenarios.template":5,"../configuration/configuration.template":7,"../equipe/equipe.template":15,"../login/login.template":17,"../recursos/recursos.template":33,"../sidebar/sidebar.template":34}],11:[function(require,module,exports){
+},{"../atividades/atividades.template":3,"../cenarios/cenarios.template":5,"../configuration/configuration.template":7,"../equipe/equipe.template":15,"../login/login.template":17,"../producao/producao.template":35,"../producao/produto.template":36,"../recursos/recursos.template":38,"../sidebar/sidebar.template":39}],11:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -874,7 +997,8 @@ var URLs = exports.URLs = {
         levantamentos: '/levantamento',
         cenarios: '/cenario',
         cenariosValor: '/cenariovalor',
-        cenariosDia: '/cenariodia'
+        cenariosDia: '/cenariodia',
+        producao: '/producao'
     }
 };
 var app = exports.app = {
@@ -919,15 +1043,21 @@ function BasicListDirective() {
         },
         controller: ['$scope', BasicListController],
         controllerAs: 'BasicList',
-        template: '<ion-list>\n\t\t\t<ion-item class="item item-divider">{{::BasicList.title}}</ion-item>\n\t\t\t<ion-item \n                ng-if="BasicList.items[0]"\n                class="item"\n\t\t\t\tng-repeat="item in BasicList.items">\n\t\t\t\t<ion-radio \n\t\t\t\t\tng-model="BasicList.model" \n\t\t\t\t\tng-value="item">\n\t\t\t\t\t\t{{::item[BasicList.prop]}}\n\t\t\t\t</ion-radio>\n\t\t\t</ion-item>\n\t\t</ion-list>'
+        template: '<ion-list>\n\t\t\t<ion-item class="item item-divider">{{::BasicList.title}}</ion-item>\n\t\t\t<!--\n            <ion-item \n                ng-if="BasicList.items[0]"\n                class="item"\n\t\t\t\tng-repeat="item in BasicList.items">\n\t\t\t\t<ion-radio \n\t\t\t\t\tng-model="BasicList.model" \n\t\t\t\t\tng-value="item">\n\t\t\t\t\t\t{{::item[BasicList.prop]}}\n\t\t\t\t</ion-radio>\n\t\t\t</ion-item>\n            -->\n            \n            <!-- level 1 -->\n            <ion-item\n                ng-if="BasicList.model"\n                ng-click="BasicList.optionsOpen = true"\n                ng-hide="BasicList.optionsOpen">\n                    {{BasicList.model[BasicList.prop]}}\n            </ion-item>\n            \n            <ion-item \n                ng-if="BasicList.items.length"\n                ng-click="BasicList.optionsOpen = false"\n                ng-show="BasicList.optionsOpen"\n                class="item"\n                ng-repeat="item in BasicList.items">\n\t\t\t\t<ion-radio \n\t\t\t\t\tng-model="BasicList.model" \n\t\t\t\t\tng-value="item">\n\t\t\t\t\t\t{{::item[BasicList.prop]}}\n\t\t\t\t</ion-radio>\n\t\t\t</ion-item>\n                </ion-item>\n\t\t</ion-list>'
     };
 }
 function BasicListController($scope) {
+    var _this2 = this;
+
+    var ctrl = this;
     var _sortByName = (0, _sorts.sortByProp)(this.prop);
+    window.ctrls = window.ctrls || {};
+    window.ctrls[this.title] = ctrl;
     var _list = [],
         _ids = [];
     this.items = [];
     this.name = this.title;
+    this.optionsOpen = true;
     Object.defineProperties(this, {
         'fullList': {
             set: function set(value) {
@@ -951,10 +1081,22 @@ function BasicListController($scope) {
             }
         }
     });
+    $scope.$watch(function () {
+        return _this2.items;
+    }, function (newVal, oldVal) {
+        if (newVal.length && !newVal[0]) {
+            ctrl.items.length = 0;
+        }
+        _this2.optionsOpen = true;
+    });
+    if (this.items.length === 1) {
+        this.model = this.items[0];
+        this.optionsOpen = false;
+    }
     return this;
 }
 
-},{"../../utils/sorts":37}],13:[function(require,module,exports){
+},{"../../utils/sorts":42}],13:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -997,16 +1139,17 @@ function TreeListDirective() {
         },
         controller: ['$scope', '$element', TreeListController],
         controllerAs: 'TreeList',
-        template: '<ion-list>\n                <ion-item\n                    class="item item-divider"\n                    ng-if=\'TreeList.title\'>{{::TreeList.title}}</ion-item>\n                <ion-item \n                    ng-if="TreeList.items[0]"\n                    class="item"\n                    ng-repeat="item in TreeList.items">\n                    <ion-radio \n                        ng-click="TreeList.select(item, 0)" \n                        ng-value="item">\n                            {{::item[TreeList.prop]}}\n                    </ion-radio>\n                    \n                    \n                    <!-- level 2 -->\n                    <ion-list ng-if="TreeList.selecteds[0] === item">\n                        <ion-item\n                            class="item"\n                            ng-repeat="item in TreeList.children[0]">\n                            <ion-radio \n                                ng-click="TreeList.select(item, 1)" \n                                ng-value="item">\n                                    {{::item[TreeList.prop]}}\n                            </ion-radio>\n                            \n                            \n                            \n                            <!-- level 3 -->\n                            <ion-list ng-if="TreeList.selecteds[1] === item">\n                                <ion-item\n                                    class="item"\n                                    ng-repeat="item in TreeList.children[1]">\n                                    <ion-radio \n                                       \n                                        ng-click="TreeList.select(item, 2)" \n                                        ng-value="item">\n                                            {{::item[TreeList.prop]}}\n                                    </ion-radio>\n                                    \n                                    \n                                    \n                                    \n                                    <!-- level 4 -->\n                                    <ion-list ng-if="TreeList.selecteds[2] === item">\n                                        <ion-item\n                                            class="item"\n                                            ng-repeat="item in TreeList.children[2]">\n                                            <ion-radio \n                                                ng-click="TreeList.select(item, 3)" \n                                                ng-value="item">\n                                                    {{::item[TreeList.prop]}}\n                                            </ion-radio>\n                                        </ion-item>\n                                    </ion-list>\n                                    <!-- /level 4 -->\n                                    \n                                    \n                                    \n                                    \n                                </ion-item><!-- /level 3 -->\n                            </ion-list>\n                            \n                            \n                            \n                            \n                            \n                        </ion-item><!-- /level 2 -->\n                    </ion-list>\n                    \n                    \n                    \n                </ion-item>\n            </ion-list>'
+        template: '\n            <ion-list>\n                <ion-item\n                    class="item item-divider"\n                    ng-show=\'TreeList.title\'>\n                    {{::TreeList.title}}\n                </ion-item>\n                \n                <!-- level 1 -->\n                <ion-item\n                    ng-click="TreeList.toSelect(0)"\n                    ng-show="TreeList.selecteds[0]">\n                    {{TreeList.selecteds[0].Nome}}\n                </ion-item>\n                \n                <ion-item \n                    ng-show="TreeList.selecting(0)"\n                    class="item"\n                    ng-repeat="item in TreeList.items">\n                    <ion-radio \n                        ng-click="TreeList.select(item, 0)" \n                        ng-value="item">\n                            {{::item[TreeList.prop]}}\n                    </ion-radio>\n                 </ion-item>\n                    \n                    \n                <!-- level 2 -->\n                <ion-item\n                    ng-click="TreeList.toSelect(1)"\n                    ng-show="TreeList.selecteds[1]">\n                    {{TreeList.selecteds[1].Nome}}\n                </ion-item>\n                \n                <ion-item \n                    ng-show="TreeList.selecting(1)""> \n                    <ion-list>\n                        <ion-item\n                            class="item"\n                            ng-repeat="item in TreeList.children[0]">\n                            <ion-radio \n                                ng-click="TreeList.select(item, 1)" \n                                ng-value="item">\n                                    {{::item[TreeList.prop]}}\n                            </ion-radio>\n                        </ion-item>\n                    </ion-list>\n                </ion-item>\n                            \n                            \n                <!-- level 3 -->\n                <ion-item\n                    ng-click="TreeList.toSelect(2)"\n                    ng-show="TreeList.selecteds[2]">\n                    {{TreeList.selecteds[2].Nome}}\n                </ion-item>\n                \n                <ion-item ng-show="TreeList.selecting(2)"> \n                    <ion-list>\n                        <ion-item\n                            class="item"\n                            ng-repeat="item in TreeList.children[1]">\n                            <ion-radio \n                                ng-click="TreeList.select(item, 2)" \n                                ng-value="item">\n                                    {{::item[TreeList.prop]}}\n                            </ion-radio>\n                        </ion-item>\n                    </ion-list>\n                </ion-item>\n\n\n                <!-- level 4 -->\n                <ion-item\n                    ng-click="TreeList.toSelect(3)"\n                    ng-show="TreeList.selecteds[3]">\n                    {{TreeList.selecteds[3].Nome}}\n                </ion-item>\n                \n                <ion-item ng-show="TreeList.selecting(3)">\n                    <ion-list >\n                        <ion-item\n                            class="item"\n                            ng-repeat="item in TreeList.children[2]">\n                            <ion-radio \n                                ng-click="TreeList.select(item, 3)" \n                                ng-value="item">\n                                    {{::item[TreeList.prop]}}\n                            </ion-radio>\n                        </ion-item>\n                    </ion-list>\n                </ion-item>\n                \n            </ion-list>'
     };
 } /* globals angular: true */
 
 function TreeListController($scope, $elem) {
     var _sortByNome = (0, _sorts.sortByProp)(this.prop);
+    var _selecting = 0;
     var _list = [],
         _ids = [],
         _full = this.fullList || [],
-        _elem = undefined;
+        _elem = void 0;
     Object.defineProperties(this, {
         'fullList': {
             set: function set(value) {
@@ -1038,12 +1181,14 @@ function TreeListController($scope, $elem) {
     this.select = function (item, lvl) {
         var _this2 = this;
 
+        _selecting = lvl + 1;
         if (this.selecteds.length > lvl) {
             this.selecteds.length = lvl;
             this.children.length = lvl;
         }
         if (!item.children.length) {
             this.model = item;
+            this.selecteds.push(item);
             return item;
         } else {
             this.model = null;
@@ -1059,17 +1204,26 @@ function TreeListController($scope, $elem) {
             _this2.children.push(arr);
         });
     };
+    this.toSelect = function (lvl) {
+        _selecting = lvl;
+    };
+    this.selecting = function (level) {
+        if (level === 0) {
+            return _selecting === level;
+        }
+        return _selecting === level && this.selecteds[level - 1] && this.selecteds[level - 1].children.length;
+    };
     return this;
 }
 
-},{"../../utils/sorts":37}],14:[function(require,module,exports){
+},{"../../utils/sorts":42}],14:[function(require,module,exports){
 "use strict";
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 Object.defineProperty(exports, "__esModule", {
     value: true
 });
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 var _AtividadeModel = require("../models/AtividadeModel");
 
@@ -1195,7 +1349,7 @@ exports.default = EquipeController;
 Object.defineProperty(exports, "__esModule", {
     value: true
 });
-exports.default = "<ion-view title=\"Equipe\">\n    <ion-nav-buttons side=\"right\">\n        <a ui-sref=\"recursos\" class=\"icon button button-balanced ion-checkmark\" \n            ng-show=\"EquipeCtrl.equipe.length\"></a>\n    </ion-nav-buttons>\n    \n    <ion-content overflow-scroll=\"true\" padding=\"'true'\" class=\"has-header\">\n       <div class=\"\"> \n        <div class=\"\">\n        <ul class=\"list\">\n            <li class=\"item\" \n                ng-repeat=\"funcao in EquipeCtrl.funcoes\" \n                ng-click=\"EquipeCtrl.openForm(funcao)\">\n                <h3><i class=\"icon ion-plus\"></i> {{::funcao.Nome}}</h3>\n                <span>{{funcao._qty}} {{funcao._qty !== 1 ? 'Membros' : 'Membro'}}</span>\n            </li>\n        </ul>\n        </div>\n        \n        <div class=\"\">\n            <form class=\"list\" ng-show=\"EquipeCtrl.showForm\">\n                <label class=\"item item-input item-stacked-label\" name=\"nomeMembro\">\n                    <span class=\"input-label\">Nome</span>\n                    <input type=\"text\" placeholder=\"\" ng-model=\"EquipeCtrl.membro.Nome\">\n                </label>\n                <label class=\"item item-input item-stacked-label\" name=\"experiencia\">\n                    <span class=\"input-label\">Experiência</span>\n                    <input type=\"number\" placeholder=\"\" ng-model=\"EquipeCtrl.membro.Experiencia\">\n                </label>\n                <label class=\"item item-select item-stacked-label\" name=\"unExperiencia\">\n                    <span class=\"input-label\">Unidade exp.</span>\n                    <select>\n                        <option>anos</option>\n                        <option>meses</option>\n                    </select>\n                </label>\n                <div class=\"button-bar\">\n                    <button \n                        class=\"button button-assertive button-block\"\n                        ng-click=\"EquipeCtrl.closeForm()\">Cancelar</button>\n                    <button \n                        class=\"button button-balanced button-block\" \n                        ng-click=\"EquipeCtrl.addMembro()\">Confirmar</button>\n                </div>\n            </form>\n            \n            <ion-list>\n                <ion-item class=\"item-icon-right\" ng-repeat=\"membro in EquipeCtrl.equipe\">\n                    <h2>{{::membro.Nome}}</h2>\n                    <small>{{::membro.Funcao.Nome}}</small>\n                    <i class=\"icon ion-trash-b\" ng-click=\"EquipeCtrl.removeMembro(membro)\"></i>\n                </ion-item>\n            </ion-list>\n        </div>\n        </div>\n    </ion-content>\n    \n    <!--\n    <ion-footer-bar>\n        <div class=\"col\">\n        <a ui-sref=\"configuration\" class=\"button button-stable button-outline button-block\">Cancelar</a>\n        </div>\n        <div class=\"col\">\n        <a ui-sref=\"recursos\" class=\"button button-balanced button-outline button-block\">Confirmar</a>\n        </div>\n    </ion-footer-bar>\n    -->\n</ion-view>";
+exports.default = "\n<ion-view title=\"Equipe\">\n    <ion-nav-buttons side=\"right\">\n        <a ui-sref=\"recursos\" class=\"icon button button-balanced ion-checkmark\" ng-show=\"EquipeCtrl.equipe.length\"></a>\n    </ion-nav-buttons>\n\n    <ion-content overflow-scroll=\"true\" padding=\"'true'\" class=\"has-header\">\n        <div class=\"\">\n            <div class=\"\">\n                <ul class=\"list\">\n                    <li class=\"item\" ng-repeat=\"funcao in EquipeCtrl.funcoes\" ng-click=\"EquipeCtrl.openForm(funcao)\">\n                        <h3><i class=\"icon ion-plus\"></i> {{::funcao.Nome}}</h3>\n                        <span>{{funcao._qty}} {{funcao._qty !== 1 ? 'Membros' : 'Membro'}}</span>\n                    </li>\n                </ul>\n            </div>\n\n            <div class=\"\">\n                <form class=\"list\" ng-show=\"EquipeCtrl.showForm\">\n                    <label class=\"item item-input item-stacked-label\" name=\"nomeMembro\">\n                        <span class=\"input-label\">Nome</span>\n                        <input type=\"text\" placeholder=\"\" ng-model=\"EquipeCtrl.membro.Nome\">\n                    </label>\n                    <label class=\"item item-input item-stacked-label\" name=\"experiencia\">\n                        <span class=\"input-label\">Experiência</span>\n                        <input type=\"number\" placeholder=\"\" ng-model=\"EquipeCtrl.membro.Experiencia\">\n                    </label>\n                    <label class=\"item item-select item-stacked-label\" name=\"unExperiencia\">\n                        <span class=\"input-label\">Unidade exp.</span>\n                        <select>\n                            <option>anos</option>\n                            <option>meses</option>\n                        </select>\n                    </label>\n                    <div class=\"button-bar\">\n                        <button class=\"button button-assertive button-block\" ng-click=\"EquipeCtrl.closeForm()\">Cancelar</button>\n                        <button class=\"button button-balanced button-block\" ng-click=\"EquipeCtrl.addMembro()\">Confirmar</button>\n                    </div>\n                </form>\n\n                <ion-list>\n                    <ion-item class=\"item-icon-right\" ng-repeat=\"membro in EquipeCtrl.equipe\">\n                        <h2>{{::membro.Nome}}</h2>\n                        <small>{{::membro.Funcao.Nome}}</small>\n                        <i class=\"icon ion-trash-b\" ng-click=\"EquipeCtrl.removeMembro(membro)\"></i>\n                    </ion-item>\n                </ion-list>\n            </div>\n        </div>\n    </ion-content>\n\n    <!--\n    <ion-footer-bar>\n        <div class=\"col\">\n        <a ui-sref=\"configuration\" class=\"button button-stable button-outline button-block\">Cancelar</a>\n        </div>\n        <div class=\"col\">\n        <a ui-sref=\"recursos\" class=\"button button-balanced button-outline button-block\">Confirmar</a>\n        </div>\n    </ion-footer-bar>\n    -->\n</ion-view>";
 
 },{}],16:[function(require,module,exports){
 "use strict";
@@ -1233,11 +1387,11 @@ exports.default = "\n<ion-view title=\"Login\">\n    <ion-content overflow-scrol
 },{}],18:[function(require,module,exports){
 'use strict';
 
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
 Object.defineProperty(exports, "__esModule", {
     value: true
 });
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 var _object = require('../utils/object.assign');
 
@@ -1270,11 +1424,10 @@ var LoginController = function () {
                 return enterOnApp.bind(_this)(resp);
             }).catch(function (err) {
                 var users = [];
-                return loginOffline(username, password).then(function (resp) {
-                    enterOnApp.bind(_this)(resp);
-                }).catch(function (err) {
-                    console.log('Não reconhecido');
-                });
+                var user = loginOffline(username, password);
+                if (user) {
+                    enterOnApp.bind(_this)(user);
+                }
             });
         }
     }]);
@@ -1307,15 +1460,15 @@ function enterOnApp(user) {
     return this.$state.go('configuration');
 }
 
-},{"../utils/object.assign":36}],19:[function(require,module,exports){
+},{"../utils/object.assign":41}],19:[function(require,module,exports){
 'use strict';
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 Object.defineProperty(exports, "__esModule", {
     value: true
 });
 exports.Aguardando = exports.AtividadeModel = exports.AtividadeEntity = undefined;
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 var _settings = require('../core/settings');
 
@@ -1339,7 +1492,7 @@ var AtividadeEntity = exports.AtividadeEntity = function (_TreeEntity) {
     function AtividadeEntity(obj) {
         _classCallCheck(this, AtividadeEntity);
 
-        var _nome = undefined;
+        var _nome = void 0;
 
         var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(AtividadeEntity).call(this, obj));
 
@@ -1484,6 +1637,7 @@ var AtividadeModel = exports.AtividadeModel = function (_TreeModel) {
 // 	return new TreeModel('atividades', URLs.endpoints.atividades, 'AtividadePaiId', AtividadeEntity, ...args);
 // }
 
+
 var Aguardando = exports.Aguardando = new AtividadeEntity({
     Id: 0,
     AtividadePaiId: null,
@@ -1497,7 +1651,7 @@ var Aguardando = exports.Aguardando = new AtividadeEntity({
     DataAtualizacao: new Date().toISOString()
 });
 
-},{"../core/settings":11,"../utils/sorts":37,"./TreeModel":30}],20:[function(require,module,exports){
+},{"../core/settings":11,"../utils/sorts":42,"./TreeModel":31}],20:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -1543,12 +1697,12 @@ function AtividadeTarefaModel() {
 },{"../core/settings":11,"./BasicModel":21}],21:[function(require,module,exports){
 'use strict';
 
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
 Object.defineProperty(exports, "__esModule", {
     value: true
 });
 exports.BasicModel = exports.BasicEntity = undefined;
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 var _settings = require('../core/settings');
 
@@ -1753,15 +1907,15 @@ var BasicModel = exports.BasicModel = function () {
     return BasicModel;
 }();
 
-},{"../core/settings":11,"../utils/object.assign":36,"../utils/sorts":37}],22:[function(require,module,exports){
+},{"../core/settings":11,"../utils/object.assign":41,"../utils/sorts":42}],22:[function(require,module,exports){
 'use strict';
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 Object.defineProperty(exports, "__esModule", {
     value: true
 });
 exports.CenarioDiaModel = exports.CenarioDiaEntity = undefined;
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 var _settings = require('../core/settings');
 
@@ -1859,9 +2013,10 @@ var CenarioDiaModel = exports.CenarioDiaModel = function (_BasicModel) {
             var _this2 = this;
 
             items = Array.isArray(items) ? items : [items];
+            var cen = new CenarioDiaEntity({});
             return items.forEach(function (item) {
                 if (!item.Fim) {
-                    var fim = item.finish(time || new Date().toISOString());
+                    var fim = cen.finish.call(item, time || new Date().toISOString());
                     if (!fim) {
                         return;
                     }
@@ -1875,8 +2030,10 @@ var CenarioDiaModel = exports.CenarioDiaModel = function (_BasicModel) {
                     data: _this2.$httpParamSerializer(_item),
                     params: { identify: true }
                 }).then(function (resp) {
-                    _this2.unqueue(item);
-                    _this2.Storage.save(_this2.type, _this2.list);
+                    if (resp.status === 201 || resp.status === 500 && resp.data.InnerException.InnerException.ExceptionMessage.indexOf('Cannot insert duplicate key row')) {
+                        _this2.unqueue(item);
+                        _this2.Storage.save(_this2.type, _this2.list);
+                    }
                 }).catch(function (err) {
                     // let storage = this.Storage.get(this.type);
                     // storage[item.Id] = item;
@@ -1889,14 +2046,15 @@ var CenarioDiaModel = exports.CenarioDiaModel = function (_BasicModel) {
     return CenarioDiaModel;
 }(_BasicModel2.BasicModel);
 
-},{"../core/settings":11,"../utils/object.assign":36,"./BasicModel":21}],23:[function(require,module,exports){
+},{"../core/settings":11,"../utils/object.assign":41,"./BasicModel":21}],23:[function(require,module,exports){
 'use strict';
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 Object.defineProperty(exports, "__esModule", {
     value: true
 });
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
 exports.CenarioModel = CenarioModel;
 
 var _settings = require('../core/settings');
@@ -2069,12 +2227,12 @@ function FuncaoModel() {
 },{"../core/settings":11,"./BasicModel":21}],27:[function(require,module,exports){
 'use strict';
 
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
 Object.defineProperty(exports, "__esModule", {
     value: true
 });
 exports.LevantamentoModel = exports.LevantamentoEntity = undefined;
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 var _settings = require('../core/settings');
 
@@ -2184,6 +2342,7 @@ var LevantamentoModel = exports.LevantamentoModel = function (_BasicModel) {
         key: 'create',
         value: function create(item) {
             var levantamento = new this._model(item);
+            ;
             if (this._map[levantamento.Id] === undefined) {
                 this._map[levantamento.Id] = levantamento;
                 this._list.push(levantamento);
@@ -2199,9 +2358,10 @@ var LevantamentoModel = exports.LevantamentoModel = function (_BasicModel) {
             var _this2 = this;
 
             items = Array.isArray(items) ? items : [items];
+            var lev = new LevantamentoEntity({});
             return items.forEach(function (item) {
                 if (!item.Fim) {
-                    var fim = item.finish({
+                    var fim = lev.finish.call(item, {
                         DuracaoMinima: 30,
                         DuracaoMaxima: Infinity
                     }, time || new Date().toISOString());
@@ -2218,8 +2378,10 @@ var LevantamentoModel = exports.LevantamentoModel = function (_BasicModel) {
                     data: _this2.$httpParamSerializer(_item),
                     params: { identify: true }
                 }).then(function (resp) {
-                    _this2.unqueue(item);
-                    _this2.Storage.save(_this2.type, _this2.list);
+                    if (resp.status === 201 || resp.status === 500 && resp.data.InnerException.InnerException.ExceptionMessage.indexOf('Cannot insert duplicate key row')) {
+                        _this2.unqueue(item);
+                        _this2.Storage.save(_this2.type, _this2.list);
+                    }
                 }).catch(function (err) {
                     // let storage = this.Storage.get(this.type);
                     // storage[item.Id] = item;
@@ -2232,7 +2394,7 @@ var LevantamentoModel = exports.LevantamentoModel = function (_BasicModel) {
     return LevantamentoModel;
 }(_BasicModel2.BasicModel);
 
-},{"../core/settings":11,"../utils/object.assign":36,"./BasicModel":21}],28:[function(require,module,exports){
+},{"../core/settings":11,"../utils/object.assign":41,"./BasicModel":21}],28:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -2270,7 +2432,202 @@ function ObraModel() {
     return new (Function.prototype.bind.apply(_TreeModel.TreeModel, [null].concat(['obras', _settings.URLs.endpoints.obras, 'ObraId', ObraEntity], args)))();
 }
 
-},{"../core/settings":11,"./TreeModel":30}],29:[function(require,module,exports){
+},{"../core/settings":11,"./TreeModel":31}],29:[function(require,module,exports){
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+exports.ProducaoModel = exports.ProdutoEntity = undefined;
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _settings = require('../core/settings');
+
+var _BasicModel2 = require('./BasicModel');
+
+var _object = require('../utils/object.assign');
+
+var _object2 = _interopRequireDefault(_object);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } else { return Array.from(arr); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+var _id = 0;
+
+var ProdutoEntity = exports.ProdutoEntity = function ProdutoEntity() {
+    var _ref = arguments.length <= 0 || arguments[0] === undefined ? {} : arguments[0];
+
+    var Id = _ref.Id;
+    var _ref$QS = _ref.QS1;
+    var QS1 = _ref$QS === undefined ? 0.00 : _ref$QS;
+    var _ref$QS2 = _ref.QS2;
+    var QS2 = _ref$QS2 === undefined ? 0.00 : _ref$QS2;
+    var _ref$QS3 = _ref.QS3;
+    var QS3 = _ref$QS3 === undefined ? 0.00 : _ref$QS3;
+    var _ref$Identificadores = _ref.Identificadores;
+    var Identificadores = _ref$Identificadores === undefined ? '' : _ref$Identificadores;
+    var _ref$Inicio = _ref.Inicio;
+    var Inicio = _ref$Inicio === undefined ? new Date().toISOString() : _ref$Inicio;
+    var _ref$Fim = _ref.Fim;
+    var Fim = _ref$Fim === undefined ? '' : _ref$Fim;
+    var _ref$ObraId = _ref.ObraId;
+    var ObraId = _ref$ObraId === undefined ? 0 : _ref$ObraId;
+    var _ref$TarefaId = _ref.TarefaId;
+    var TarefaId = _ref$TarefaId === undefined ? 0 : _ref$TarefaId;
+    var _ref$EmpresaId = _ref.EmpresaId;
+    var EmpresaId = _ref$EmpresaId === undefined ? 0 : _ref$EmpresaId;
+    var _ref$UserId = _ref.UserId;
+    var UserId = _ref$UserId === undefined ? '' : _ref$UserId;
+    var _ref$Comentario = _ref.Comentario;
+    var Comentario = _ref$Comentario === undefined ? '' : _ref$Comentario;
+    var _ref$Atributos = _ref.Atributos;
+    var Atributos = _ref$Atributos === undefined ? [] : _ref$Atributos;
+
+    _classCallCheck(this, ProdutoEntity);
+
+    var date = new Date();
+    this.Id = parseInt('{date.getFullYear()}{date.getMonths()}{date.getDate()}{date.getHours()}{date.getMinutes()}{++_id}', 10);
+    this.QS1 = QS1;
+    this.QS2 = QS2;
+    this.QS3 = QS3;
+    this.Identificadores = Identificadores;
+    this.Inicio = Inicio;
+    this.Fim = Fim;
+    this.ObraId = ObraId;
+    this.TarefaId = TarefaId;
+    this.EmpresaId = EmpresaId;
+    this.UserId = UserId;
+    this.Comentario = Comentario;
+    this.Atributos = Atributos;
+    this.selecteds = {};
+};
+
+var ProducaoModel = exports.ProducaoModel = function (_BasicModel) {
+    _inherits(ProducaoModel, _BasicModel);
+
+    function ProducaoModel() {
+        var _Object$getPrototypeO;
+
+        _classCallCheck(this, ProducaoModel);
+
+        for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
+            args[_key] = arguments[_key];
+        }
+
+        var _this = _possibleConstructorReturn(this, (_Object$getPrototypeO = Object.getPrototypeOf(ProducaoModel)).call.apply(_Object$getPrototypeO, [this, 'producao', _settings.URLs.endpoints.producao, ProdutoEntity].concat(args)));
+
+        _this.$httpParamSerializer = args[args.length - 1];
+        return _this;
+    }
+
+    _createClass(ProducaoModel, [{
+        key: 'init',
+        value: function init() {
+            this._list = [];
+            this._map = {};
+        }
+    }, {
+        key: 'cancel',
+        value: function cancel(produto) {
+            return this.unqueue(produto);
+        }
+    }, {
+        key: 'fetch',
+        value: function fetch() {
+            var _this2 = this;
+
+            return this.$q(function (resolve) {
+                return resolve(_this2.list);
+            });
+        }
+    }, {
+        key: 'queue',
+        value: function queue(itens) {
+            var _this3 = this,
+                _list;
+
+            itens = Array.isArray(itens) ? itens : [itens];
+            itens = itens.filter(function (item) {
+                var _item = _this3._map[item.Id];
+                if (_item) {
+                    (0, _object2.default)(_item, item);
+                    return false;
+                }
+                _this3._map[item.Id] = item;
+                return true;
+            }).map(function (item) {
+                return _this3._map[item.Id];
+            });
+            (_list = this._list).push.apply(_list, _toConsumableArray(itens));
+            return this;
+        }
+    }, {
+        key: 'create',
+        value: function create(item) {
+            var produto = new this._model(item);
+            if (this._map[produto.Id] === undefined) {
+                this._map[produto.Id] = produto;
+                this._list.push(produto);
+            } else {
+                this._map[produto.Id] = (0, _object2.default)(this._map[produto.Id], produto);
+            }
+            this.Storage.save(this.type, this.list);
+            return this._map[produto.Id];
+        }
+    }, {
+        key: 'old',
+        value: function old() {
+            return this.Storage.get(this.type) || [];
+        }
+    }, {
+        key: 'post',
+        value: function post(items, time) {
+            var _this4 = this;
+
+            items = Array.isArray(items) ? items : [items];
+            return items.forEach(function (item) {
+                if (!item.Fim) {
+                    item.Fim = time || new Date().toISOString();
+                }
+                var _item = (0, _object2.default)({}, item);
+                delete _item.Id;
+                delete _item.selecteds;
+                delete _item.sessionKey;
+                return _this4.$http({
+                    url: '' + _settings.URLs.services + _this4.url,
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+                    data: _this4.$httpParamSerializer(_item),
+                    params: { identify: true }
+                }).then(function (resp) {
+                    var storage = _this4.Storage.get(_this4.type);
+                    if (resp.status === 201 || resp.status === 500 && resp.data.InnerException.InnerException.ExceptionMessage.indexOf('Cannot insert duplicate key row')) {
+                        _this4.Storage.save(_this4.type, storage.filter(function (stor) {
+                            return stor.Id !== item.Id;
+                        }));
+                    }
+                }).catch(function (err) {
+                    var storage = _this4.Storage.get(_this4.type);
+                    console.warn(storage);
+                    // storage[item.Id] = item;
+                    // this.Storage.save(this.type, storage);
+                });
+            });
+        }
+    }]);
+
+    return ProducaoModel;
+}(_BasicModel2.BasicModel);
+
+},{"../core/settings":11,"../utils/object.assign":41,"./BasicModel":21}],30:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -2309,15 +2666,15 @@ function TarefaModel() {
     return new (Function.prototype.bind.apply(_BasicModel.BasicModel, [null].concat(['tarefas', _settings.URLs.endpoints.tarefas, TarefaEntity], args)))();
 }
 
-},{"../core/settings":11,"./BasicModel":21}],30:[function(require,module,exports){
+},{"../core/settings":11,"./BasicModel":21}],31:[function(require,module,exports){
 'use strict';
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 Object.defineProperty(exports, "__esModule", {
     value: true
 });
 exports.TreeModel = exports.TreeEntity = undefined;
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 var _settings = require('../core/settings');
 
@@ -2518,15 +2875,15 @@ var TreeModel = exports.TreeModel = function () {
     return TreeModel;
 }();
 
-},{"../core/settings":11,"../utils/object.assign":36,"../utils/sorts":37}],31:[function(require,module,exports){
+},{"../core/settings":11,"../utils/object.assign":41,"../utils/sorts":42}],32:[function(require,module,exports){
 'use strict';
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 Object.defineProperty(exports, "__esModule", {
     value: true
 });
 exports.defaultUser = undefined;
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 var _settings = require('../core/settings');
 
@@ -2596,19 +2953,16 @@ var UserModel = function () {
     }, {
         key: 'checkCredentials',
         value: function checkCredentials(users, username, password) {
-            var _this2 = this;
-
-            return this.$q(function (resolve, reject) {
-                var pwd = _this2.encrypt(password);
-                var user = users.filter(function (user) {
-                    return user.UserName === username && user.Password === pwd;
-                });
-                if (user.length) {
-                    resolve(_this2.setUser(user[0], password));
-                } else {
-                    reject(new Error('Invalid arguments'));
-                }
+            var pwd = this.encrypt(password);
+            var user = users.filter(function (user) {
+                return user.UserName === username && user.Password === pwd;
             });
+            if (user.length) {
+                return this.setUser(user[0], password);
+                ;
+            } else {
+                throw new Error('Invalid arguments');
+            }
         }
     }]);
 
@@ -2617,14 +2971,156 @@ var UserModel = function () {
 
 exports.default = UserModel;
 
-},{"../core/settings":11,"../utils/object.assign":36}],32:[function(require,module,exports){
+},{"../core/settings":11,"../utils/object.assign":41}],33:[function(require,module,exports){
 'use strict';
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 Object.defineProperty(exports, "__esModule", {
     value: true
 });
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+var ProducaoController = function () {
+    function ProducaoController($state, Session, ProducaoModel) {
+        _classCallCheck(this, ProducaoController);
+
+        this.$state = $state;
+        debugger;
+        this.tarefa = Session.tarefa;
+        this.produtos = ProducaoModel.list;
+    }
+
+    _createClass(ProducaoController, [{
+        key: 'go',
+        value: function go(produto) {
+            if (produto === undefined) {
+                return this.$state.go('produto-novo');
+            }
+            return this.$state.go('produto', { id: produto.Id });
+        }
+    }]);
+
+    return ProducaoController;
+}();
+
+exports.default = ProducaoController;
+
+},{}],34:[function(require,module,exports){
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _ProducaoModel = require('../models/ProducaoModel');
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+var data = new Date().toISOString();
+
+var ProdutoController = function () {
+    function ProdutoController($state, Session, ProducaoModel, Storage, produto) {
+        _classCallCheck(this, ProdutoController);
+
+        this.$state = $state;
+        this.Session = Session;
+        this.ProducaoModel = ProducaoModel;
+        this.Storage = Storage;
+        this.visibles = {};
+        this.tarefa = Session.tarefa;
+        this.produto = Object.keys(produto).length ? produto : new _ProducaoModel.ProdutoEntity({
+            ObraId: Session.obra.Id,
+            TarefaId: Session.tarefa.Id,
+            EmpresaId: Session.empresa.Id,
+            UserId: Session.user.UserId
+        });
+    }
+
+    _createClass(ProdutoController, [{
+        key: 'toggle',
+        value: function toggle(id) {
+            this.visibles[id] = !this.visibles[id];
+        }
+    }, {
+        key: 'isVisible',
+        value: function isVisible(id) {
+            return this.visibles[id];
+        }
+    }, {
+        key: 'hasSelected',
+        value: function hasSelected(atributo) {
+            return !!this.produto.selecteds[atributo.Id];
+        }
+    }, {
+        key: 'selected',
+        value: function selected(atributo) {
+            return this.produto.selecteds[atributo.Id].Nome;
+        }
+    }, {
+        key: 'save',
+        value: function save() {
+            this.ProducaoModel.queue(this.produto);
+            this.Storage.save('producao', this.ProducaoModel.list);
+            this.$state.go('producao');
+        }
+    }, {
+        key: 'isSelected',
+        value: function isSelected(atributo, valor) {
+            return this.produto.selecteds[atributo.Id] === valor;
+        }
+    }, {
+        key: 'select',
+        value: function select(valor) {
+            this.toggle(valor.CenarioId);
+            if (this.produto.Atributos.indexOf(valor.Id) >= 0) {
+                return;
+            }
+            if (this.produto.selecteds[valor.CenarioId]) {
+                var valorId = this.produto.selecteds[valor.CenarioId];
+                var idx = this.produto.Atributos.indexOf(valorId);
+                this.produto.Atributos.splice(idx, 1);
+            }
+            this.produto.selecteds[valor.CenarioId] = valor;
+            this.produto.Atributos.push(valor.Id);
+            this.produto.Atributos.sort(function (a, b) {
+                return a - b;
+            });
+        }
+    }]);
+
+    return ProdutoController;
+}();
+
+exports.default = ProdutoController;
+
+},{"../models/ProducaoModel":29}],35:[function(require,module,exports){
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+exports.default = "<ion-view title=\"Produção\">\n    <ion-nav-buttons side=\"right\">\n    </ion-nav-buttons>\n    \n    <div class=\"tabs tabs-striped tabs-top tabs-balanced\">\n        <a ui-sref=\"cenarios\" ui-sref-active=\"active\" class=\"tab-item\">\n            Cenários\n        </a>\n        <a ui-sref=\"recursos\" ui-sref-active=\"active\" class=\"tab-item\">\n            Recursos\n        </a>\n        <a ui-sref=\"producao\" ui-sref-active=\"active\" class=\"tab-item\">\n            Produção\n        </a>\n    </div>\n\n    <ion-content overflow-scroll=\"true\" padding=\"'true'\" class=\"has-header has-tabs-top\">\n        \n        <ion-list>\n            <ion-item ng-click=\"ProducaoCtrl.go()\" class=\"item-icon-left\">\n                <i class=\"icon ion-plus-circled\"></i>\n                Novo produto\n            </ion-item>\n            \n            <ion-item class=\"item-divider\">\n            Produtos\n            </ion-item>\n            \n            <ion-item class=\"item-thumbnail-left\" \n                ng-click=\"ProducaoCtrl.go(produto)\"\n                ng-repeat=\"produto in ProducaoCtrl.produtos\">\n                <div class=\"item item-divider\">\n                    {{::produto.Identificadores}}\n                </div>\n            </ion-item>\n        </ion-list>\n    </ion-content>\n    \n    <!--\n    <ion-footer-bar class=\"row\" ng-show=\"RecursosCtrl.levantamentos\">\n        <div class=\"col\"></div>\n        <div class=\"col\">\n            <button  class=\"button button-balanced button-outline button-block\">Confirmar</a>\n        </div>\n    </ion-footer-bar>\n    -->\n</ion-view>";
+
+},{}],36:[function(require,module,exports){
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+exports.default = "<ion-view title=\"Produto\" cache-view=\"false\">\n    <ion-nav-buttons side=\"right\">\n        <button class=\"icon button button-balanced ion-checkmark\" \n            ng-click=\"ProdutoCtrl.save()\"></button>\n    </ion-nav-buttons>\n    \n    <div class=\"tabs tabs-striped tabs-top tabs-balanced\">\n        <a ui-sref=\"cenarios\" ui-sref-active=\"active\" class=\"tab-item\">\n            Cenários\n        </a>\n        <a ui-sref=\"recursos\" ui-sref-active=\"active\" class=\"tab-item\">\n            Recursos\n        </a>\n        <a ui-sref=\"producao\" ui-sref-active=\"active\" class=\"tab-item\">\n            Produção\n        </a>\n    </div>\n\n    <ion-content overflow-scroll=\"true\" padding=\"'true'\" class=\"has-header has-tabs-top\">\n        \n        <div class=\"padding-bottom\">\n            <h4>Nome do produto</h4>\n            <label class=\"item item-input\">\n                <input type=\"text\" ng-model=\"ProdutoCtrl.produto.Identificadores\">\n            </label>\n        </div>\n        \n        <ion-list class=\"padding-top\">\n            <h4>Características:</h4>\n            \n            <ion-item  ng-repeat=\"atributo in ProdutoCtrl.Session.AtributosProducao\">\n                <h4 ng-click=\"ProdutoCtrl.toggle(atributo.Id)\" class=\"item item-divider\">\n                    {{::atributo.Nome}}\n                </h4>\n                <div ng-hide=\"ProdutoCtrl.isVisible(atributo.Id)\">\n                    <ion-item ng-click=\"ProdutoCtrl.toggle(atributo.Id)\" ng-if=\"ProdutoCtrl.hasSelected(atributo)\">{{ProdutoCtrl.selected(atributo)}}</ion-item>\n                    <ion-item ng-click=\"ProdutoCtrl.toggle(atributo.Id)\" ng-if=\"!ProdutoCtrl.hasSelected(atributo)\">Selecione uma das opções</ion-item>\n                </div>\n                <ion-list ng-show=\"ProdutoCtrl.isVisible(atributo.Id)\">\n                    <ion-checkbox ng-repeat=\"valor in atributo.Valores\"\n                        ng-value=\"valor\"\n                        ng-selected=\"ProdutoCtrl.isSelected(atributo, valor)\" \n                        ng-click=\"ProdutoCtrl.select(valor)\">\n                            {{::valor.Nome}}\n                    </ion-item>\n                </ion-list>\n            </ion-item>\n       </ion-list>\n        \n        <ion-list class=\"padding-top\">\n            <h4>Quantidades</h4>\n            \n            <ion-item class=\"item-thumbnail-left\">\n                <div class=\"padding-bottom\">\n                    <label class=\"item item-input\">\n                        <input type=\"number\" ng-model=\"ProdutoCtrl.produto.QS1\">\n                        <span class=\"input-label\">{{::ProdutoCtrl.tarefa.UnidadeMedida}}</span>\n                    </label>\n                </div>\n            </ion-item>\n            \n            <ion-item class=\"item-thumbnail-left\" ng-if=\"ProdutoCtrl.tarefa.UnidadeMedida2\">\n                <div class=\"padding-bottom\">\n                    <label class=\"item item-input\">\n                        <input type=\"number\" ng-model=\"ProdutoCtrl.produto.QS2\">\n                        <span class=\"input-label\">{{::ProdutoCtrl.tarefa.UnidadeMedida2}}</span>\n                    </label>\n                </div>\n            </ion-item>\n            \n            <ion-item class=\"item-thumbnail-left\" ng-if=\"ProdutoCtrl.tarefa.UnidadeMedida3\">\n                <div class=\"padding-bottom\">\n                    <label class=\"item item-input\">\n                        <input type=\"number\" ng-model=\"ProdutoCtrl.produto.QS3\">\n                        <span class=\"input-label\">{{::ProdutoCtrl.tarefa.UnidadeMedida3}}</span>\n                    </label>\n                </div>\n            </ion-item>\n        </ion-list>\n    </ion-content>\n    \n    <!--\n    <ion-footer-bar class=\"row\" ng-show=\"RecursosCtrl.levantamentos\">\n        <div class=\"col\"></div>\n        <div class=\"col\">\n            <button  class=\"button button-balanced button-outline button-block\">Confirmar</a>\n        </div>\n    </ion-footer-bar>\n    -->\n</ion-view>";
+
+},{}],37:[function(require,module,exports){
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 var _AtividadeModel = require('../models/AtividadeModel');
 
@@ -2632,19 +3128,57 @@ function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
+var Popup = function () {
+    function Popup($ionicPopup, $scope) {
+        _classCallCheck(this, Popup);
+
+        this.$ionicPopup = $ionicPopup;
+        this.$scope = $scope;
+    }
+
+    _createClass(Popup, [{
+        key: 'show',
+        value: function show() {
+            return this.$ionicPopup.show({
+                template: '\n            <div class="row">\n                <label class="col">\n                    Hora:\n                    <input type="number" min="0" max="23" ng-model="horario.hora">\n                </label>\n                <label class="col">\n                    Minutos:\n                    <input type="number" min="0" max="59" ng-model="horario.minutos">\n                </label>\n            </div>\n            ',
+                title: 'Encerrar levantamento?',
+                subTitle: 'Defina o horário que deseja encerrar os registros',
+                scope: this.$scope,
+                buttons: [{ text: 'Cancelar' }, {
+                    text: '<b>Enviar</b>',
+                    type: 'button-positive',
+                    onTap: function onTap(e) {
+                        if (!this.scope.horario.hora && !this.scope.horario.minutos) {
+                            //don't allow the user to close unless he enters wifi password
+                            e.preventDefault();
+                        } else {
+                            return this.scope.horario;
+                        }
+                    }
+                }]
+            });
+        }
+    }]);
+
+    return Popup;
+}();
+
 var RecursosController = function () {
-    function RecursosController($q, $state, Session, AtividadeModel, LevantamentoModel, CenarioDiaModel) {
+    function RecursosController($q, $state, $scope, $ionicPopup, Session, AtividadeModel, LevantamentoModel, CenarioDiaModel, ProducaoModel) {
         var _this = this;
 
         _classCallCheck(this, RecursosController);
 
         this.Session = Session;
         this.$state = $state;
+        this.$scope = $scope;
         this.$q = $q;
         this.atividades = [_AtividadeModel.Aguardando];
         this.LevantamentoModel = LevantamentoModel;
         this.levantamentos = LevantamentoModel.list;
         this.CenarioDiaModel = CenarioDiaModel;
+        this.ProducaoModel = ProducaoModel;
+        this.popup = new Popup($ionicPopup, $scope);
         AtividadeModel.get(this.Session.tarefa.Atividades).then(function (resp) {
             var _atividades;
 
@@ -2670,11 +3204,12 @@ var RecursosController = function () {
         }
     }, {
         key: 'send',
-        value: function send() {
-            var time = new Date().toISOString();
+        value: function send(time) {
+            time = time.toISOString() || new Date().toISOString();
             var levantamentos = this.LevantamentoModel.post(this.LevantamentoModel.list, time);
             var cenarios = this.CenarioDiaModel.post(this.CenarioDiaModel.list, time);
-            var obj = { levantamentos: levantamentos, cenarios: cenarios };
+            var producao = this.ProducaoModel.post(this.ProducaoModel.list.concat(this.ProducaoModel.old()), time);
+            var obj = { levantamentos: levantamentos, cenarios: cenarios, producao: producao };
             return obj;
         }
     }, {
@@ -2682,10 +3217,20 @@ var RecursosController = function () {
         value: function endSession($event) {
             var _this2 = this;
 
-            var promises = this.send();
-            this.$q.all(promises).then(function (resp) {
-                _this2.Session.end();
-                return _this2.$state.go('login');
+            var data = new Date();
+            this.$scope.horario = {
+                hora: data.getHours(),
+                minutos: data.getMinutes()
+            };
+            this.popup.show().then(function (resp) {
+                var date = new Date();
+                date.setHours(resp.hora);
+                date.setMinutes(resp.minutos);
+                var promises = _this2.send(date);
+                _this2.$q.all(promises).then(function (resp) {
+                    _this2.Session.end();
+                    return _this2.$state.go('login');
+                });
             });
         }
     }]);
@@ -2695,15 +3240,15 @@ var RecursosController = function () {
 
 exports.default = RecursosController;
 
-},{"../models/AtividadeModel":19}],33:[function(require,module,exports){
+},{"../models/AtividadeModel":19}],38:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
     value: true
 });
-exports.default = "<ion-view title=\"Recursos\">\n    <ion-nav-buttons side=\"right\">\n        <button class=\"icon button button-balanced ion-android-send\" \n            ng-click=\"RecursosCtrl.endSession($event)\"></button>\n    </ion-nav-buttons>\n    \n    <div class=\"tabs tabs-striped tabs-top tabs-balanced\">\n        <a ui-sref=\"cenarios\" ui-sref-active=\"active\" class=\"tab-item\">\n            Cenários\n        </a>\n        <a ui-sref=\"recursos\" ui-sref-active=\"active\" class=\"tab-item\">\n            Recursos\n        </a>\n        <a ui-sref=\"producao\" ui-sref-active=\"active\" class=\"tab-item\">\n            Produção\n        </a>\n    </div>\n\n    <ion-content overflow-scroll=\"true\" padding=\"'true'\" class=\"has-header has-tabs-top\">\n        \n        <ion-list>\n            <ion-item class=\"item-thumbnail-left\" \n                ng-if=\"atividade.Membros.length\" \n                ng-repeat=\"atividade in RecursosCtrl.atividades\">\n                <div class=\"item item-divider\" ng-click=\"RecursosCtrl.mudarAtividade(atividade.Membros)\">\n                    {{::atividade.Nome}}\n                </div>\n                <img>\n                <ion-list type=\"list-inset\" ng-repeat=\"membro in atividade.Membros\">\n                    <div ng-click=\"RecursosCtrl.mudarAtividade([membro])\">\n                        <h2>{{::membro.Nome}}</h2>\n                        <small>{{::membro.Funcao.Nome}}</small>\n                    </div>\n                    <i class=\"icon ion-android-textsms\"></ion>\n                </div>\n            </ion-item>\n        </ion-list>\n    </ion-content>\n    \n    <!--\n    <ion-footer-bar class=\"row\" ng-show=\"RecursosCtrl.levantamentos\">\n        <div class=\"col\"></div>\n        <div class=\"col\">\n            <button  class=\"button button-balanced button-outline button-block\">Confirmar</a>\n        </div>\n    </ion-footer-bar>\n    -->\n</ion-view>";
+exports.default = "<ion-view title=\"Recursos\">\n    <ion-nav-buttons side=\"right\">\n        <button class=\"icon button button-balanced ion-android-send\" \n            ng-click=\"RecursosCtrl.endSession($event)\"></button>\n    </ion-nav-buttons>\n    \n    <div class=\"tabs tabs-striped tabs-top tabs-balanced\">\n        <a ui-sref=\"cenarios\" ui-sref-active=\"active\" class=\"tab-item\">\n            Cenários\n        </a>\n        <a ui-sref=\"recursos\" ui-sref-active=\"active\" class=\"tab-item\">\n            Recursos\n        </a>\n        <a ui-sref=\"producao\" ui-sref-active=\"active\" class=\"tab-item\">\n            Produção\n        </a>\n    </div>\n\n    <ion-content overflow-scroll=\"true\" padding=\"'true'\" class=\"has-header has-tabs-top\">\n        \n        <ion-list>\n            <ion-item class=\"item-thumbnail-left\" \n                ng-if=\"atividade.Membros.length\" \n                ng-repeat=\"atividade in RecursosCtrl.atividades\">\n                <div class=\"item item-divider\" ng-click=\"RecursosCtrl.mudarAtividade(atividade.Membros)\">\n                    {{::atividade.Nome}}\n                </div>\n                <img>\n                <ion-list type=\"list-inset\" ng-repeat=\"membro in atividade.Membros\">\n                    <div ng-click=\"RecursosCtrl.mudarAtividade([membro])\">\n                        <h2>{{::membro.Nome}}</h2>\n                        <small>{{::membro.Funcao.Nome}}</small>\n                    </div>\n                </ion-list>\n            </ion-item>\n        </ion-list>\n    </ion-content>\n    \n    <!--\n    <ion-footer-bar class=\"row\" ng-show=\"RecursosCtrl.levantamentos\">\n        <div class=\"col\"></div>\n        <div class=\"col\">\n            <button  class=\"button button-balanced button-outline button-block\">Confirmar</a>\n        </div>\n    </ion-footer-bar>\n    -->\n</ion-view>";
 
-},{}],34:[function(require,module,exports){
+},{}],39:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -2711,14 +3256,15 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = "<ion-side-menus enable-menu-with-back-views=\"false\">\n    <ion-side-menu-content>\n        <ion-nav-bar class=\"bar-balanced\">\n            <ion-nav-back-button></ion-nav-back-button>\n            <ion-nav-buttons side=\"left\">\n                <button class=\"button button-icon button-clear ion-navicon\" menu-toggle=\"\"></button>\n            </ion-nav-buttons>\n        </ion-nav-bar>\n        <ion-nav-view name=\"side-menu\"></ion-nav-view>\n    </ion-side-menu-content>\n    <ion-side-menu side=\"left\">\n        <ion-header-bar class=\"bar-stable\">\n            <div class=\"title\">Menu</div>\n        </ion-header-bar>\n        <ion-content padding=\"false\" class=\"side-menu-left has-header\" ion-content=\"\">\n            <ion-list>\n                <ion-item ui-sref=\"configuration\" menu-close=\"\">Configuração</ion-item>\n                <ion-item>Item 2</ion-item>\n                <ion-item>Item 3</ion-item>\n            </ion-list>\n            <div class=\"spacer\" style=\"width: 268px; height: 291px;\"></div>\n            <ion-list>\n                <ion-item ui-sref=\"login\" menu-close=\"\">Logout</ion-item>\n            </ion-list>\n        </ion-content>\n    </ion-side-menu>\n</ion-side-menus>";
 
-},{}],35:[function(require,module,exports){
+},{}],40:[function(require,module,exports){
 'use strict';
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }(); /// <reference path="../../typings/lz-string/lz-string.d.ts" />
 
 Object.defineProperty(exports, "__esModule", {
     value: true
 });
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }(); /// <reference path="../../typings/lz-string/lz-string.d.ts" />
+
 
 var _settings = require('../core/settings');
 
@@ -2740,11 +3286,13 @@ var Storage = function () {
         key: 'compact',
         value: function compact(value) {
             return this.LZString.compressToUTF16(JSON.stringify(value));
+            // return JSON.stringify(value);
         }
     }, {
         key: 'descompact',
         value: function descompact(value) {
             return JSON.parse(this.LZString.decompressFromUTF16(value));
+            // return JSON.parse(value);
         }
     }, {
         key: 'save',
@@ -2764,6 +3312,11 @@ var Storage = function () {
             }
             return this._cache[type] || null;
         }
+    }, {
+        key: 'erase',
+        value: function erase(type) {
+            this.local.removeItem(type);
+        }
     }]);
 
     return Storage;
@@ -2771,7 +3324,7 @@ var Storage = function () {
 
 exports.default = Storage;
 
-},{"../core/settings":11}],36:[function(require,module,exports){
+},{"../core/settings":11}],41:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -2803,7 +3356,7 @@ var assign = Object.assign || function (target) {
 };
 exports.default = assign;
 
-},{}],37:[function(require,module,exports){
+},{}],42:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -2818,6 +3371,26 @@ function sortByProp(prop) {
     return function sortByPropBinded(a, b) {
         return a[prop] > b[prop] ? 1 : a[prop] < b[prop] ? -1 : 0;
     };
+}
+
+},{}],43:[function(require,module,exports){
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+exports.mapify = mapify;
+exports.arrify = arrify;
+function mapify(array) {
+    return array.reduce(function (map, value) {
+        map[value.Id] = value;
+        return map;
+    }, {});
+}
+function arrify(map) {
+    return Object.keys(map).sort().map(function (key) {
+        return map[key];
+    });
 }
 
 },{}]},{},[1])

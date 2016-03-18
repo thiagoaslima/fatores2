@@ -4,7 +4,7 @@ export default function interceptHttp(Session) {
 			if (config.params && config.params.identify) {
 				let params = config.params;
 				let token = Session.getToken();
-				
+                
 				if (!token) {
 					config.timeout = 1;
 				} else {

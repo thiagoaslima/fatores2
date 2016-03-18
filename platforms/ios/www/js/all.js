@@ -25,6 +25,12 @@ var _AtividadeTarefaModel2 = _interopRequireDefault(_AtividadeTarefaModel);
 
 var _LevantamentoModel = require('./models/LevantamentoModel');
 
+var _CenarioModel = require('./models/CenarioModel');
+
+var _CenarioValorModel = require('./models/CenarioValorModel');
+
+var _CenarioDiaModel = require('./models/CenarioDiaModel');
+
 var _Session = require('./core/Session');
 
 var _Session2 = _interopRequireDefault(_Session);
@@ -49,6 +55,10 @@ var _AtividadesController = require('./atividades/AtividadesController');
 
 var _AtividadesController2 = _interopRequireDefault(_AtividadesController);
 
+var _CenariosController = require('./cenarios/CenariosController');
+
+var _CenariosController2 = _interopRequireDefault(_CenariosController);
+
 var _basiclist = require('./directives/selectors/basiclist');
 
 var _treelist = require('./directives/selectors/treelist');
@@ -67,7 +77,9 @@ var _loading2 = _interopRequireDefault(_loading);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-angular.module('app', ['ionic', 'angulartics', 'angulartics.google.analytics.cordova']).directive('basicList', _basiclist.BasicListDirective).directive('treeList', _treelist.TreeListDirective).service('UserModel', ['$window', '$q', '$http', 'Storage', _UserModel2.default]).controller('LoginController', ['$state', 'UserModel', 'Storage', 'Session', _loginController2.default]).service('Session', _Session2.default).service('Storage', ['$window', _storage2.default]).service('EmpresaModel', ['$http', '$q', 'Storage', _EmpresaModel.EmpresaModel]).service('ObraModel', ['$http', '$q', 'Storage', _ObraModel.ObraModel]).service('TarefaModel', ['$http', '$q', 'Storage', _TarefaModel.TarefaModel]).service('FuncaoModel', ['$http', '$q', 'Storage', _FuncaoModel.FuncaoModel]).service('AtividadeModel', ['$http', '$q', 'Storage', _AtividadeModel.AtividadeModel]).service('AtividadeTarefaModel', ['$http', '$q', 'Storage', _AtividadeTarefaModel2.default]).service('LevantamentoModel', ['$http', '$q', 'Storage', '$httpParamSerializer', _LevantamentoModel.LevantamentoModel]).controller('ConfigurationController', ['$scope', '$ionicHistory', '$state', 'Session', 'UserModel', 'EmpresaModel', 'ObraModel', 'TarefaModel', 'AtividadeModel', 'AtividadeTarefaModel', _ConfigurationController2.default]).controller('EquipeController', ['Session', 'FuncaoModel', _EquipeController2.default]).controller('RecursosController', ['$q', '$state', 'Session', 'AtividadeModel', 'LevantamentoModel', _RecursosController2.default]).controller('AtividadesController', ['$state', 'Session', 'AtividadeModel', 'LevantamentoModel', _AtividadesController2.default]).config(['$stateProvider', '$urlRouterProvider', _routes2.default]).service('httpInterceptor', ['Session', _login2.default]).service('loadingStatus', ['$injector', _loading2.default]).config(['$httpProvider', function ($httpProvider) {
+var angular = window.angular;
+
+angular.module('app', ['ionic', 'ngCordova', 'angulartics', 'angulartics.google.analytics.cordova']).directive('basicList', _basiclist.BasicListDirective).directive('treeList', _treelist.TreeListDirective).service('UserModel', ['$window', '$q', '$http', 'Storage', _UserModel2.default]).controller('LoginController', ['$state', 'UserModel', 'Storage', 'Session', _loginController2.default]).service('Session', _Session2.default).service('Storage', ['$window', _storage2.default]).service('EmpresaModel', ['$http', '$q', 'Storage', _EmpresaModel.EmpresaModel]).service('ObraModel', ['$http', '$q', 'Storage', _ObraModel.ObraModel]).service('TarefaModel', ['$http', '$q', 'Storage', _TarefaModel.TarefaModel]).service('FuncaoModel', ['$http', '$q', 'Storage', _FuncaoModel.FuncaoModel]).service('AtividadeModel', ['$http', '$q', 'Storage', _AtividadeModel.AtividadeModel]).service('AtividadeTarefaModel', ['$http', '$q', 'Storage', _AtividadeTarefaModel2.default]).service('CenarioModel', ['$http', '$q', 'Storage', _CenarioModel.CenarioModel]).service('CenarioValorModel', ['$http', '$q', 'Storage', _CenarioValorModel.CenarioValorModel]).service('LevantamentoModel', ['$http', '$q', 'Storage', '$httpParamSerializer', _LevantamentoModel.LevantamentoModel]).service('CenarioDiaModel', ['$http', '$q', 'Storage', '$httpParamSerializer', _CenarioDiaModel.CenarioDiaModel]).controller('ConfigurationController', ['$scope', '$ionicHistory', '$state', 'Session', 'UserModel', 'EmpresaModel', 'ObraModel', 'TarefaModel', 'AtividadeModel', 'AtividadeTarefaModel', _ConfigurationController2.default]).controller('EquipeController', ['Session', 'FuncaoModel', _EquipeController2.default]).controller('RecursosController', ['$q', '$state', 'Session', 'AtividadeModel', 'LevantamentoModel', 'CenarioDiaModel', _RecursosController2.default]).controller('AtividadesController', ['$state', 'Session', 'AtividadeModel', 'LevantamentoModel', _AtividadesController2.default]).controller('CenariosController', ['$scope', '$state', 'Session', 'CenarioModel', 'CenarioValorModel', 'CenarioDiaModel', _CenariosController2.default]).config(['$stateProvider', '$urlRouterProvider', _routes2.default]).service('httpInterceptor', ['Session', _login2.default]).service('loadingStatus', ['$injector', _loading2.default]).config(['$httpProvider', function ($httpProvider) {
     $httpProvider.defaults.timeout = 2000;
     $httpProvider.interceptors.push('httpInterceptor');
     $httpProvider.interceptors.push('loadingStatus');
@@ -83,7 +95,6 @@ angular.module('app', ['ionic', 'angulartics', 'angulartics.google.analytics.cor
             gaPlugin.init(function () {
                 $rootScope.gaConnected = true;
             }, function () {
-                console.log('not');
                 $rootScope.gaConnected = false;
             }, 'UA-71620104-1', 10);
         } else {
@@ -105,25 +116,26 @@ angular.module('app', ['ionic', 'angulartics', 'angulartics.google.analytics.cor
         }
     });
     $rootScope.$on('$stateNotFound', function (event, unfoundState, fromState, fromParams) {
-        console.log('not found');
+        /*console.log('not found');
         console.log(unfoundState.to); // "lazy.state"
         console.log(unfoundState.toParams); // {a:1, b:2}
         console.log(unfoundState.options); // {inherit:false} + default options
+        */
     });
     $rootScope.$on('$stateChangeSuccess', function (event, toState, toParams, fromState, fromParams) {
-        console.log('success', arguments);
+        //console.log('success', arguments);
     });
     $rootScope.$on('$stateChangeError', function (event, toState, toParams, fromState, fromParams, error) {
-        console.log('error', arguments);
+        // console.log('error', arguments);
     });
     $rootScope.$on('$viewContentLoading', function (event, viewConfig) {
         // Access to all the view config properties.
         // and one special property 'targetView'
         // viewConfig.targetView
-        console.log('loading', arguments);
+        // console.log('loading', arguments);
     });
     $rootScope.$on('$viewContentLoaded', function (event) {
-        console.log('loaded', arguments);
+        // console.log('loaded', arguments);
     });
 }]);
 try {
@@ -134,14 +146,14 @@ try {
     }]);
 } catch (err) {}
 
-},{"./atividades/AtividadesController":2,"./configuration/ConfigurationController":4,"./core/Session":6,"./core/loading.interceptor":7,"./core/routes":8,"./directives/selectors/basiclist":10,"./directives/selectors/treelist":11,"./equipe/EquipeController":12,"./login/login.interceptors":14,"./login/loginController":16,"./models/AtividadeModel":17,"./models/AtividadeTarefaModel":18,"./models/EmpresaModel":20,"./models/FuncaoModel":21,"./models/LevantamentoModel":22,"./models/ObraModel":23,"./models/TarefaModel":24,"./models/UserModel":26,"./recursos/RecursosController":27,"./storage/storage":30}],2:[function(require,module,exports){
+},{"./atividades/AtividadesController":2,"./cenarios/CenariosController":4,"./configuration/ConfigurationController":6,"./core/Session":8,"./core/loading.interceptor":9,"./core/routes":10,"./directives/selectors/basiclist":12,"./directives/selectors/treelist":13,"./equipe/EquipeController":14,"./login/login.interceptors":16,"./login/loginController":18,"./models/AtividadeModel":19,"./models/AtividadeTarefaModel":20,"./models/CenarioDiaModel":22,"./models/CenarioModel":23,"./models/CenarioValorModel":24,"./models/EmpresaModel":25,"./models/FuncaoModel":26,"./models/LevantamentoModel":27,"./models/ObraModel":28,"./models/TarefaModel":29,"./models/UserModel":31,"./recursos/RecursosController":32,"./storage/storage":35}],2:[function(require,module,exports){
 'use strict';
-
-var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
 
 Object.defineProperty(exports, "__esModule", {
     value: true
 });
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 var _object = require('../utils/object.assign');
 
@@ -151,7 +163,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
-var AtividadesController = (function () {
+var AtividadesController = function () {
     function AtividadesController($state, Session, AtividadeModel, LevantamentoModel) {
         _classCallCheck(this, AtividadesController);
 
@@ -178,16 +190,6 @@ var AtividadesController = (function () {
             var _this = this;
 
             $event.preventDefault();
-            var base = {
-                UserId: this.Session.user.UserId,
-                EmpresaId: this.Session.empresa.Id,
-                ObraId: this.Session.obra.Id,
-                TarefaId: this.Session.tarefa.Id,
-                AtividadeId: this.atividadeSelected.Id,
-                AtividadeTarefaId: this.Session.atividadesTarefa.filter(function (item) {
-                    return item.AtividadeId === _this.atividadeSelected.Id;
-                })[0].Id
-            };
             var selecteds = this.equipe.filter(function (membro) {
                 return membro.isSelected();
             }).concat(this.atividadeSelected.Membros).filter(function (membro, idx, arr) {
@@ -212,17 +214,31 @@ var AtividadesController = (function () {
                         _this.LevantamentoModel.cancel(membro.Levantamento);
                     }
                 });
-                var _lev = (0, _object2.default)({}, base, {
-                    FuncaoId: membros[0].Funcao.Id,
-                    QuantidadeColaboradores: membros.length,
-                    Colaboradores: membros.map(function (membro) {
-                        return membro.Nome;
-                    }).join(' '),
-                    ExperienciaFuncao: membros.reduce(function (total, membro) {
-                        return total + membro.Experiencia;
-                    }, 0),
-                    Comentario: ''
-                });
+                var base = void 0,
+                    _lev = void 0;
+                if (_this.atividadeSelected.Id) {
+                    base = {
+                        UserId: _this.Session.user.UserId,
+                        EmpresaId: _this.Session.empresa.Id,
+                        ObraId: _this.Session.obra.Id,
+                        TarefaId: _this.Session.tarefa.Id,
+                        AtividadeId: _this.atividadeSelected.Id,
+                        AtividadeTarefaId: _this.Session.atividadesTarefa.filter(function (item) {
+                            return item.AtividadeId === _this.atividadeSelected.Id;
+                        })[0].Id
+                    };
+                    _lev = (0, _object2.default)({}, base, {
+                        FuncaoId: membros[0].Funcao.Id,
+                        QuantidadeColaboradores: membros.length,
+                        Colaboradores: membros.map(function (membro) {
+                            return membro.Nome;
+                        }).join(' '),
+                        ExperienciaFuncao: membros.reduce(function (total, membro) {
+                            return total + membro.Experiencia;
+                        }, 0),
+                        Comentario: ''
+                    });
+                }
                 var levantamento = _this.atividadeSelected.Id === 0 ? null : _this.LevantamentoModel.create(_lev);
                 membros.forEach(function (membro) {
                     membro.Levantamento = levantamento;
@@ -236,30 +252,163 @@ var AtividadesController = (function () {
     }]);
 
     return AtividadesController;
-})();
+}();
 
 exports.default = AtividadesController;
 
-},{"../utils/object.assign":31}],3:[function(require,module,exports){
+},{"../utils/object.assign":36}],3:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
     value: true
 });
-exports.default = "<ion-view title=\"Atividades\">\n    <ion-content overflow-scroll=\"true\" padding=\"'true'\" class=\"has-header\">\n        \n       <div class=\"list card\">\n            <ion-list>\n                <ion-item ng-repeat=\"atividade in AtividadesCtrl.atividades\">\n                    <div class=\"item item-divider\">\n                    {{::atividade.Nome}}\n                    {{::atividade.AtividadesFilhas}}\n                    </div>\n                </ion-item>\n            </ion-list>    \n       \n            <tree-list \n                service=\"AtividadesCtrl.AtividadeModel\"\n                filter=\"AtividadesCtrl.Session.tarefa.Atividades\"\n                model=\"AtividadesCtrl.atividadeSelected\"\n                items=\"AtividadesCtrl.atividades\"\n                title=\"Atividades\"\n                prop=\"Nome\"\n                children-prop=\"AtividadesFilhas\" />\n       \n        </div>\n        \n        <ion-list>\n        <ion-item class=\"item item-divider\">Equipe</ion-item>\n            <ion-item class=\"item\" ng-repeat=\"membro in AtividadesCtrl.equipe\">\n                <ion-checkbox ng-model=\"membro._selected\">{{::membro.Nome}}</ion-checkbox>\n            </ion-item>\n        <ion-list>\n    </ion-content>\n    \n    <ion-footer-bar >\n        <div class=\"row\">\n            <div class=\"col\">\n                <a ui-sref=\"recursos\" \n                        class=\"button button-stable button-block\">Cancelar</a>\n            </div>\n            <div class=\"col\">\n                <a ui-sref=\"recursos\" \n                    class=\"button button-stable button-block\"\n                    ng-click=\"AtividadesCtrl.setLevantamento($event)\">Confirmar</a>\n            </div>\n        </div>\n    </ion-footer-bar>\n    \n</ion-view>";
+exports.default = "<ion-view title=\"Atividades\">\n    <ion-nav-buttons side=\"right\">\n        <a ui-sref=\"recursos\" class=\"icon button button-balanced ion-checkmark\" \n            ng-click=\"AtividadesCtrl.setLevantamento($event)\"\n            ng-show=\"AtividadesCtrl.atividadeSelected\"></a>\n    </ion-nav-buttons>\n\n    <ion-content overflow-scroll=\"true\" padding=\"'true'\" class=\"has-header\">\n        \n       <div class=\"list card\">\n            <ion-list>\n                <ion-item ng-repeat=\"atividade in AtividadesCtrl.atividades\">\n                    <div class=\"item item-divider\">\n                    {{::atividade.Nome}}\n                    {{::atividade.AtividadesFilhas}}\n                    </div>\n                </ion-item>\n            </ion-list>    \n       \n            <tree-list \n                service=\"AtividadesCtrl.AtividadeModel\"\n                filter=\"AtividadesCtrl.Session.tarefa.Atividades\"\n                model=\"AtividadesCtrl.atividadeSelected\"\n                items=\"AtividadesCtrl.atividades\"\n                title=\"Atividades\"\n                prop=\"Nome\"\n                children-prop=\"AtividadesFilhas\" />\n       \n        </div>\n        \n        <ion-list>\n        <ion-item class=\"item item-divider\">Equipe</ion-item>\n            <ion-item class=\"item\" ng-repeat=\"membro in AtividadesCtrl.equipe\">\n                <ion-checkbox ng-model=\"membro._selected\">{{::membro.Nome}}</ion-checkbox>\n            </ion-item>\n        <ion-list>\n    </ion-content>\n    \n    <!--\n    <ion-footer-bar >\n        <div class=\"row\">\n            <div class=\"col\">\n                <a ui-sref=\"recursos\" \n                        class=\"button button-stable button-block\">Cancelar</a>\n            </div>\n            <div class=\"col\">\n                <a ui-sref=\"recursos\" \n                    class=\"button button-stable button-block\"\n                    ng-click=\"AtividadesCtrl.setLevantamento($event)\">Confirmar</a>\n            </div>\n        </div>\n    </ion-footer-bar>\n    -->\n</ion-view>";
 
 },{}],4:[function(require,module,exports){
-"use strict";
-
-var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
+'use strict';
 
 Object.defineProperty(exports, "__esModule", {
     value: true
 });
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _object = require('../utils/object.assign');
+
+var _object2 = _interopRequireDefault(_object);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } else { return Array.from(arr); } }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
-var ConfigurationController = (function () {
+var base = {
+    UserId: '',
+    ObraId: 0,
+    EmpresaId: 0,
+    TarefaId: 0
+};
+
+var CenariosController = function () {
+    function CenariosController($scope, $state, Session, CenarioModel, CenarioValorModel, CenarioDiaModel) {
+        var _this = this;
+
+        _classCallCheck(this, CenariosController);
+
+        this.$scope = $scope;
+        this.$state = $state;
+        this.cenarios = [];
+        this.visibles = {};
+        this.modified = {};
+        this.Session = Session;
+        this.CenarioDiaModel = CenarioDiaModel;
+        base = {
+            UserId: Session.user.UserId,
+            ObraId: Session.obra.Id,
+            EmpresaId: Session.empresa.Id,
+            TarefaId: Session.tarefa.Id
+        };
+        this.init(Session, CenarioModel, CenarioValorModel);
+        this.$scope.$on('$ionicView.beforeLeave', function () {
+            _this.cenarios.forEach(function (cenario) {
+                _this.modified[cenario.Id] = cenario.selected;
+            });
+        });
+    }
+
+    _createClass(CenariosController, [{
+        key: 'init',
+        value: function init(Session, CenarioModel, CenarioValorModel) {
+            var _this2 = this;
+
+            debugger;
+            var _cenariosValor = CenarioValorModel.list.filter(function (item) {
+                return Session.tarefa.CenariosValor.indexOf(item.Id) >= 0;
+            });
+            var _map = {};
+            var _cenariosId = _cenariosValor.map(function (item) {
+                _map[item.CenarioId] = _map[item.CenarioId] || [];
+                _map[item.CenarioId].push(item);
+                return item.CenarioId;
+            }).filter(function (id, idx, arr) {
+                return arr.indexOf(id) === idx;
+            }).sort(function (a, b) {
+                return a - b;
+            });
+            CenarioModel.get(_cenariosId).then(function (cenarios) {
+                cenarios.forEach(function (cenario) {
+                    if (!cenario.Valores.length) {
+                        var _cenario$Valores;
+
+                        var valores = _map[cenario.Id];
+                        (_cenario$Valores = cenario.Valores).push.apply(_cenario$Valores, _toConsumableArray(valores));
+                        cenario.Valores.filter(function (valor, idx, arr) {
+                            return arr.indexOf(valor) === idx;
+                        });
+                    }
+                });
+                _this2.cenarios = cenarios;
+            });
+        }
+    }, {
+        key: 'toggle',
+        value: function toggle(id) {
+            this.visibles[id] = !this.visibles[id];
+        }
+    }, {
+        key: 'isVisible',
+        value: function isVisible(id) {
+            return this.visibles[id];
+        }
+    }, {
+        key: 'isModified',
+        value: function isModified(cenario) {
+            return cenario.selected !== this.modified[cenario.Id];
+        }
+    }, {
+        key: 'select',
+        value: function select(cenario, valor) {
+            this.createRegistro(cenario, valor);
+            cenario.select(valor);
+            this.toggle(cenario.Id);
+        }
+    }, {
+        key: 'createRegistro',
+        value: function createRegistro(cenario, valor) {
+            var _registro = (0, _object2.default)({}, base, {
+                CenarioValorId: valor.Id,
+                Inicio: cenario.selected ? new Date().toISOString() : this.Session.startTime
+            });
+            this.CenarioDiaModel.create(_registro);
+        }
+    }]);
+
+    return CenariosController;
+}();
+
+exports.default = CenariosController;
+
+},{"../utils/object.assign":36}],5:[function(require,module,exports){
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+exports.default = "<ion-view title=\"Cenários\">\n    \n    <div class=\"tabs tabs-striped tabs-top tabs-balanced\">\n        <a ui-sref=\"cenarios\" ui-sref-active=\"active\" class=\"tab-item\">\n            Cenários\n        </a>\n        <a ui-sref=\"recursos\" ui-sref-active=\"active\" class=\"tab-item\">\n            Recursos\n        </a>\n        <a ui-sref=\"producao\" ui-sref-active=\"active\" class=\"tab-item\">\n            Produção\n        </a>\n    </div>\n        \n    <ion-content overflow-scroll=\"true\" padding=\"'true'\" class=\"has-header has-tabs-top\"> \n     \n       <ion-list>\n        <ion-item ng-style=\"CenariosCtrl.isModified(cenario) ? {'background-color': 'light-yellow'} : {}\" ng-repeat=\"cenario in CenariosCtrl.cenarios\">\n                <h2 ng-click=\"CenariosCtrl.toggle(cenario.Id)\" class=\"item item-divider\">\n                    {{::cenario.Nome}}\n                </h2>\n                <div ng-hide=\"CenariosCtrl.isVisible(cenario.Id)\">\n                    <ion-item ng-click=\"CenariosCtrl.toggle(cenario.Id)\" ng-if=\"cenario.selected\">{{cenario.selected.Nome}}</ion-item>\n                    <ion-item ng-click=\"CenariosCtrl.toggle(cenario.Id)\" ng-if=\"!cenario.selected\">Selecione uma das opções</ion-item>\n                </div>\n                <ion-list ng-show=\"CenariosCtrl.isVisible(cenario.Id)\">\n                    <ion-checkbox ng-repeat=\"valor in cenario.Valores\"\n                        ng-value=\"valor\"\n                        ng-selected=\"cenario.selected === valor\" \n                        ng-click=\"CenariosCtrl.select(cenario, valor)\">\n                        {{::valor.Nome}}\n                    </ion-item>\n                </ion-list>\n        \n        </ion-item>\n       </ion-list>\n\n    </ion-content>\n\n    <ion-footer-bar ng-show=\"ConfigCtrl.selected.tarefa\">\n        <div class=\"col\">\n        <a ui-sref=\"login\" class=\"button button-stable button-outline button-block\">Cancelar</a>\n        </div>\n        <div class=\"col\">\n        <a ui-sref=\"equipe\" ng-click=\"ConfigCtrl.save($event)\" class=\"button button-balanced button-outline button-block\">Confirmar</a>\n        </div>\n    </ion-footer-bar>\n    \n</ion-view>";
+
+},{}],6:[function(require,module,exports){
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+var ConfigurationController = function () {
     function ConfigurationController($scope, $ionicHistory, $state, Session, UserModel, EmpresaModel, ObraModel, TarefaModel, AtividadeModel, AtividadeTarefaModel) {
         _classCallCheck(this, ConfigurationController);
 
@@ -284,10 +433,10 @@ var ConfigurationController = (function () {
         };
         this.selected = {};
         var _selected = {
-            empresa: null,
-            obra: null,
-            contratada: null,
-            tarefa: null
+            empresa: Session.empresa || null,
+            obra: Session.obra || null,
+            contratada: Session.contratada || null,
+            tarefa: Session.tarefa || null
         };
         var controller = this;
         Object.defineProperties(this.selected, {
@@ -356,7 +505,7 @@ var ConfigurationController = (function () {
         value: function init() {
             var _this = this;
 
-            var Obras = undefined;
+            var Obras = void 0;
             var listaObras = this.ObraModel.get(this.UserModel.user.Obras);
             listaObras.then(function (lista) {
                 _this.selectables.obras = _this.ObraModel.getLevel(lista);
@@ -399,26 +548,26 @@ var ConfigurationController = (function () {
     }]);
 
     return ConfigurationController;
-})();
+}();
 
 exports.default = ConfigurationController;
 
-},{}],5:[function(require,module,exports){
+},{}],7:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
     value: true
 });
-exports.default = "<ion-view title=\"Configuração\">\n    <ion-content overflow-scroll=\"true\" padding=\"'true'\" class=\"has-header\"> \n     \n        <div class=\"list card\">\n            <basic-list \n                model=\"ConfigCtrl.selected.empresa\"\n                items=\"ConfigCtrl.selectables.empresas\"\n                title=\"Empresa\"\n                prop=\"RazaoSocial\" />\n        </div>\n        \n        <div class=\"list card\">\n            <tree-list \n                service=\"ConfigCtrl.ObraModel\"\n                model=\"ConfigCtrl.selected.obra\"\n                items-ids=\"ConfigCtrl.selected.empresa.Obras\"\n                title=\"Obras\"\n                prop=\"Nome\" />\n        </div>\n\n        <div class=\"list card\">\n            <basic-list \n                service=\"ConfigCtrl.EmpresaModel\"\n                model=\"ConfigCtrl.selected.contratada\"\n                items-ids=\"ConfigCtrl.selected.obra.Contratadas\"\n                title=\"Contratada\"\n                prop=\"RazaoSocial\" />\n        </div>\n                \n       <div class=\"list card\">\n            <basic-list \n                service=\"ConfigCtrl.TarefaModel\"\n                model=\"ConfigCtrl.selected.tarefa\"\n                items-ids=\"ConfigCtrl.selected.contratada.Tarefas\"\n                title=\"Tarefa\"\n                prop=\"Nome\" />\n        </div>\n\n    </ion-content>\n\n    <ion-footer-bar ng-show=\"ConfigCtrl.selected.tarefa\">\n        <div class=\"col\">\n        <a ui-sref=\"login\" class=\"button button-stable button-outline button-block\">Cancelar</a>\n        </div>\n        <div class=\"col\">\n        <a ui-sref=\"equipe\" ng-click=\"ConfigCtrl.save($event)\" class=\"button button-balanced button-outline button-block\">Confirmar</a>\n        </div>\n    </ion-footer-bar>\n    \n</ion-view>";
+exports.default = "<ion-view title=\"Configuração\">\n    <ion-nav-buttons side=\"right\">\n        <button class=\"icon button button-balanced ion-checkmark\" \n            ng-show=\"ConfigCtrl.selected.tarefa\"\n            ng-click=\"ConfigCtrl.save($event)\"></button>\n    </ion-nav-buttons>\n\n    <ion-content overflow-scroll=\"true\" padding=\"'true'\" class=\"has-header\"> \n     \n        <div class=\"list card\">\n            <basic-list \n                model=\"ConfigCtrl.selected.empresa\"\n                items=\"ConfigCtrl.selectables.empresas\"\n                title=\"Empresa\"\n                prop=\"RazaoSocial\" />\n        </div>\n        \n        <div class=\"list card\">\n            <tree-list \n                service=\"ConfigCtrl.ObraModel\"\n                model=\"ConfigCtrl.selected.obra\"\n                items-ids=\"ConfigCtrl.selected.empresa.Obras\"\n                title=\"Obras\"\n                prop=\"Nome\" />\n        </div>\n\n        <div class=\"list card\">\n            <basic-list \n                service=\"ConfigCtrl.EmpresaModel\"\n                model=\"ConfigCtrl.selected.contratada\"\n                items-ids=\"ConfigCtrl.selected.obra.Contratadas\"\n                title=\"Contratada\"\n                prop=\"RazaoSocial\" />\n        </div>\n                \n       <div class=\"list card\">\n            <basic-list \n                service=\"ConfigCtrl.TarefaModel\"\n                model=\"ConfigCtrl.selected.tarefa\"\n                items-ids=\"ConfigCtrl.selected.contratada.Tarefas\"\n                title=\"Tarefa\"\n                prop=\"Nome\" />\n        </div>\n\n    </ion-content>\n\n    <!--\n    <ion-footer-bar ng-show=\"ConfigCtrl.selected.tarefa\">\n        <div class=\"col\">\n        <a ui-sref=\"login\" class=\"button button-stable button-outline button-block\">Cancelar</a>\n        </div>\n        <div class=\"col\">\n        <a ui-sref=\"equipe\" ng-click=\"ConfigCtrl.save($event)\" class=\"button button-balanced button-outline button-block\">Confirmar</a>\n        </div>\n    </ion-footer-bar>\n    -->\n</ion-view>";
 
-},{}],6:[function(require,module,exports){
+},{}],8:[function(require,module,exports){
 'use strict';
-
-var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
 
 Object.defineProperty(exports, "__esModule", {
     value: true
 });
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 var _AtividadeModel = require('../models/AtividadeModel');
 
@@ -426,7 +575,7 @@ function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
-var Session = (function () {
+var Session = function () {
     function Session() {
         _classCallCheck(this, Session);
 
@@ -475,6 +624,20 @@ var Session = (function () {
             return this.user ? this.user.Token : '';
         }
     }, {
+        key: 'reset',
+        value: function reset() {
+            this.DataAtualizacao = '';
+            this.started = false;
+            this.user = null;
+            this.empresa = null;
+            this.obra = null;
+            this.contratada = null;
+            this.tarefa = null;
+            this.equipe = [];
+            this.atividades = [_AtividadeModel.Aguardando];
+            this.atividadesTarefa = [];
+        }
+    }, {
         key: 'start',
         value: function start() {
             this.started = true;
@@ -488,11 +651,11 @@ var Session = (function () {
     }]);
 
     return Session;
-})();
+}();
 
 exports.default = Session;
 
-},{"../models/AtividadeModel":17}],7:[function(require,module,exports){
+},{"../models/AtividadeModel":19}],9:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -509,6 +672,7 @@ function loadingStatus($injector) {
             var $ionicLoading = $injector.get('$ionicLoading');
             if (config.url.indexOf(_settings.URLs.services) === 0) {
                 numLoadings++;
+                config.timeout = 2500;
             }
             if (numLoadings > 0) {
                 $ionicLoading.show();
@@ -540,7 +704,7 @@ function loadingStatus($injector) {
     };
 }
 
-},{"./settings":9}],8:[function(require,module,exports){
+},{"./settings":11}],10:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -572,6 +736,10 @@ var _atividades = require('../atividades/atividades.template');
 
 var _atividades2 = _interopRequireDefault(_atividades);
 
+var _cenarios = require('../cenarios/cenarios.template');
+
+var _cenarios2 = _interopRequireDefault(_cenarios);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function router($stateProvider, $urlRouterProvider) {
@@ -581,6 +749,20 @@ function router($stateProvider, $urlRouterProvider) {
             obj.restrict = true;
         }
         return orig(name, obj);
+    };
+    var fetch = function fetch(model) {
+        var attempt = arguments.length <= 1 || arguments[1] === undefined ? 0 : arguments[1];
+
+        return model.fetch().finally(function (resp) {
+            console.log(model.type, attempt);
+            if (model.list.length) {
+                return model;
+            }
+            if (attempt > 5) {
+                throw new Error('Não foi possui recuperar dados de ' + model.type);
+            }
+            return fetch(model, ++attempt);
+        });
     };
     // Ionic uses AngularUI Router which uses the concept of states
     // Learn more here: https://github.com/angular-ui/ui-router
@@ -604,14 +786,29 @@ function router($stateProvider, $urlRouterProvider) {
                 controller: 'ConfigurationController',
                 controllerAs: 'ConfigCtrl',
                 resolve: {
-                    data: ['EmpresaModel', 'ObraModel', 'TarefaModel', 'FuncaoModel', 'AtividadeModel', 'AtividadeTarefaModel', function (EmpresaModel, ObraModel, TarefaModel, FuncaoModel, AtividadeModel, AtividadeTarefaModel) {
-                        EmpresaModel.fetch().catch();
-                        ObraModel.fetch().catch();
-                        TarefaModel.fetch().catch();
-                        FuncaoModel.fetch().catch();
-                        AtividadeModel.fetch().catch();
-                        AtividadeTarefaModel.fetch().catch();
-                        return true;
+                    empresas: ['EmpresaModel', function (model) {
+                        return fetch(model);
+                    }],
+                    obras: ['ObraModel', function (model) {
+                        return fetch(model);
+                    }],
+                    tarefas: ['TarefaModel', function (model) {
+                        return fetch(model);
+                    }],
+                    funcoes: ['FuncaoModel', function (model) {
+                        return fetch(model);
+                    }],
+                    atividades: ['AtividadeModel', function (model) {
+                        return fetch(model);
+                    }],
+                    atividadesTarefa: ['AtividadeTarefaModel', function (model) {
+                        return fetch(model);
+                    }],
+                    cenarios: ['CenarioModel', function (model) {
+                        return fetch(model);
+                    }],
+                    cenariosValor: ['CenarioValorModel', function (model) {
+                        return fetch(model);
                     }]
                 }
             }
@@ -646,12 +843,22 @@ function router($stateProvider, $urlRouterProvider) {
                 controllerAs: 'AtividadesCtrl'
             }
         }
+    }).state('cenarios', {
+        parent: "menu",
+        url: '/cenarios',
+        views: {
+            'side-menu': {
+                template: _cenarios2.default,
+                controller: 'CenariosController',
+                controllerAs: 'CenariosCtrl'
+            }
+        }
     });
     // if none of the above states are matched, use this as the fallback
     $urlRouterProvider.otherwise('/login');
 }
 
-},{"../atividades/atividades.template":3,"../configuration/configuration.template":5,"../equipe/equipe.template":13,"../login/login.template":15,"../recursos/recursos.template":28,"../sidebar/sidebar.template":29}],9:[function(require,module,exports){
+},{"../atividades/atividades.template":3,"../cenarios/cenarios.template":5,"../configuration/configuration.template":7,"../equipe/equipe.template":15,"../login/login.template":17,"../recursos/recursos.template":33,"../sidebar/sidebar.template":34}],11:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -668,14 +875,17 @@ var URLs = exports.URLs = {
         funcoes: '/funcao',
         atividades: '/atividade',
         atividadesTarefa: '/atividadetarefa',
-        levantamentos: '/levantamento'
+        levantamentos: '/levantamento',
+        cenarios: '/cenario',
+        cenariosValor: '/cenariovalor',
+        cenariosDia: '/cenariodia'
     }
 };
 var app = exports.app = {
     version: '0.2.0'
 };
 
-},{}],10:[function(require,module,exports){
+},{}],12:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -748,7 +958,7 @@ function BasicListController($scope) {
     return this;
 }
 
-},{"../../utils/sorts":32}],11:[function(require,module,exports){
+},{"../../utils/sorts":37}],13:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -791,16 +1001,17 @@ function TreeListDirective() {
         },
         controller: ['$scope', '$element', TreeListController],
         controllerAs: 'TreeList',
-        template: '<ion-list>\n                <ion-item\n                    class="item item-divider"\n                    ng-if=\'TreeList.title\'>{{::TreeList.title}}</ion-item>\n                <ion-item \n                    ng-if="TreeList.items[0]"\n                    class="item"\n                    ng-repeat="item in TreeList.items">\n                    <ion-radio \n                        ng-click="TreeList.select(item, 0)" \n                        ng-value="item">\n                            {{::item[TreeList.prop]}}\n                    </ion-radio>\n                    \n                    \n                    <!-- level 2 -->\n                    <ion-list ng-if="TreeList.selecteds[0] === item">\n                        <ion-item\n                            class="item"\n                            ng-repeat="item in TreeList.children[0]">\n                            <ion-radio \n                                ng-click="TreeList.select(item, 1)" \n                                ng-value="item">\n                                    {{::item[TreeList.prop]}}\n                            </ion-radio>\n                            \n                            \n                            \n                            <!-- level 3 -->\n                            <ion-list ng-if="TreeList.selecteds[1] === item">\n                                <ion-item\n                                    class="item"\n                                    ng-repeat="item in TreeList.children[1]">\n                                    <ion-radio \n                                       \n                                        ng-click="TreeList.select(item, 2)" \n                                        ng-value="item">\n                                            {{::item[TreeList.prop]}}\n                                    </ion-radio>\n                                    \n                                    \n                                    \n                                    \n                                    <!-- level 4 -->\n                                    <ion-list ng-if="TreeList.selecteds[2] === item">\n                                        <ion-item\n                                            class="item"\n                                            ng-repeat="item in TreeList.children[2]">\n                                            <ion-radio \n                                                ng-click="TreeList.select(item, 3)" \n                                                ng-value="item">\n                                                    {{::item[TreeList.prop]}}\n                                            </ion-radio>\n                                        </ion-item>\n                                    </ion-list>\n                                    <!-- /level 4 -->\n                                    \n                                    \n                                    \n                                    \n                                </ion-item><!-- /level 3 -->\n                            </ion-list>\n                            \n                            \n                            \n                            \n                            \n                        </ion-item><!-- /level 2 -->\n                    </ion-list>\n                    \n                    \n                    \n                </ion-item>\n            </ion-list>'
+        template: '\n            <ion-list>\n                <ion-item\n                    class="item item-divider"\n                    ng-if=\'TreeList.title\'>\n                    {{::TreeList.title}}\n                </ion-item>\n                \n                <!-- level 1 -->\n                <ion-item\n                    ng-if="TreeList.selecteds[0]">\n                    {{TreeList.selecteds[0].Nome}}\n                </ion-item>\n                \n                <ion-item \n                    ng-if="TreeList.selecting(0)"\n                    class="item"\n                    ng-repeat="item in TreeList.items">\n                    <ion-radio \n                        ng-click="TreeList.select(item, 0)" \n                        ng-value="item">\n                            {{::item[TreeList.prop]}}\n                    </ion-radio>\n                 </ion-item>\n                    \n                    \n                <!-- level 2 -->\n                <ion-item\n                    ng-if="TreeList.selecteds[1]">\n                    {{TreeList.selecteds[1].Nome}}\n                </ion-item>\n                \n                <ion-item \n                    ng-if="TreeList.selecting(1)""> \n                    <ion-list>\n                        <ion-item\n                            class="item"\n                            ng-repeat="item in TreeList.children[0]">\n                            <ion-radio \n                                ng-click="TreeList.select(item, 1)" \n                                ng-value="item">\n                                    {{::item[TreeList.prop]}}\n                            </ion-radio>\n                        </ion-item>\n                    </ion-list>\n                </ion-item>\n                            \n                            \n                <!-- level 3 -->\n                <ion-item\n                    ng-if="TreeList.selecteds[2]">\n                    {{TreeList.selecteds[2].Nome}}\n                </ion-item>\n                \n                <ion-item ng-if="TreeList.selecting(2)"> \n                    <ion-list>\n                        <ion-item\n                            class="item"\n                            ng-repeat="item in TreeList.children[1]">\n                            <ion-radio \n                                ng-click="TreeList.select(item, 2)" \n                                ng-value="item">\n                                    {{::item[TreeList.prop]}}\n                            </ion-radio>\n                        </ion-item>\n                    </ion-list>\n                </ion-item>\n\n\n                <!-- level 4 -->\n                <ion-item\n                    ng-if="TreeList.selecteds[3]">\n                    {{TreeList.selecteds[3].Nome}}\n                </ion-item>\n                \n                <ion-item ng-if="TreeList.selecting(3)">\n                    <ion-list >\n                        <ion-item\n                            class="item"\n                            ng-repeat="item in TreeList.children[2]">\n                            <ion-radio \n                                ng-click="TreeList.select(item, 3)" \n                                ng-value="item">\n                                    {{::item[TreeList.prop]}}\n                            </ion-radio>\n                        </ion-item>\n                    </ion-list>\n                </ion-item>\n                \n            </ion-list>'
     };
 } /* globals angular: true */
 
 function TreeListController($scope, $elem) {
     var _sortByNome = (0, _sorts.sortByProp)(this.prop);
+    var _selecting = 0;
     var _list = [],
         _ids = [],
         _full = this.fullList || [],
-        _elem = undefined;
+        _elem = void 0;
     Object.defineProperties(this, {
         'fullList': {
             set: function set(value) {
@@ -832,12 +1043,14 @@ function TreeListController($scope, $elem) {
     this.select = function (item, lvl) {
         var _this2 = this;
 
+        _selecting = lvl + 1;
         if (this.selecteds.length > lvl) {
             this.selecteds.length = lvl;
             this.children.length = lvl;
         }
         if (!item.children.length) {
             this.model = item;
+            this.selecteds.push(item);
             return item;
         } else {
             this.model = null;
@@ -853,17 +1066,20 @@ function TreeListController($scope, $elem) {
             _this2.children.push(arr);
         });
     };
+    this.selecting = function (level) {
+        return _selecting === level;
+    };
     return this;
 }
 
-},{"../../utils/sorts":32}],12:[function(require,module,exports){
+},{"../../utils/sorts":37}],14:[function(require,module,exports){
 "use strict";
-
-var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
 
 Object.defineProperty(exports, "__esModule", {
     value: true
 });
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 var _AtividadeModel = require("../models/AtividadeModel");
 
@@ -871,7 +1087,7 @@ function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
-var Membro = (function () {
+var Membro = function () {
     function Membro(_ref) {
         var Nome = _ref.Nome;
         var Experiencia = _ref.Experiencia;
@@ -915,9 +1131,9 @@ var Membro = (function () {
     }]);
 
     return Membro;
-})();
+}();
 
-var EquipeController = (function () {
+var EquipeController = function () {
     function EquipeController(Session, FuncaoModel) {
         _classCallCheck(this, EquipeController);
 
@@ -979,19 +1195,19 @@ var EquipeController = (function () {
     }]);
 
     return EquipeController;
-})();
+}();
 
 exports.default = EquipeController;
 
-},{"../models/AtividadeModel":17}],13:[function(require,module,exports){
+},{"../models/AtividadeModel":19}],15:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
     value: true
 });
-exports.default = "<ion-view title=\"Equipe\">\n    <ion-content overflow-scroll=\"true\" padding=\"'true'\" class=\"has-header\">\n       <div class=\"\"> \n        <div class=\"\">\n        <ul class=\"list\">\n            <li class=\"item\" \n                ng-repeat=\"funcao in EquipeCtrl.funcoes\" \n                ng-click=\"EquipeCtrl.openForm(funcao)\">\n                <h3><i class=\"icon ion-plus\"></i> {{::funcao.Nome}}</h3>\n                <span>{{funcao._qty}} {{funcao._qty !== 1 ? 'Membros' : 'Membro'}}</span>\n            </li>\n        </ul>\n        </div>\n        \n        <div class=\"\">\n            <form class=\"list\" ng-show=\"EquipeCtrl.showForm\">\n                <label class=\"item item-input item-stacked-label\" name=\"nomeMembro\">\n                    <span class=\"input-label\">Nome</span>\n                    <input type=\"text\" placeholder=\"\" ng-model=\"EquipeCtrl.membro.Nome\">\n                </label>\n                <label class=\"item item-input item-stacked-label\" name=\"experiencia\">\n                    <span class=\"input-label\">Experiência</span>\n                    <input type=\"number\" placeholder=\"\" ng-model=\"EquipeCtrl.membro.Experiencia\">\n                </label>\n                <label class=\"item item-select item-stacked-label\" name=\"unExperiencia\">\n                    <span class=\"input-label\">Unidade exp.</span>\n                    <select>\n                        <option>anos</option>\n                        <option>meses</option>\n                    </select>\n                </label>\n                <div class=\"button-bar\">\n                    <button \n                        class=\"button button-assertive button-block\"\n                        ng-click=\"EquipeCtrl.closeForm()\">Cancelar</button>\n                    <button \n                        class=\"button button-balanced button-block\" \n                        ng-click=\"EquipeCtrl.addMembro()\">Confirmar</button>\n                </div>\n            </form>\n            \n            <ion-list>\n                <ion-item class=\"item-icon-right\" ng-repeat=\"membro in EquipeCtrl.equipe\">\n                    <h2>{{::membro.Nome}}</h2>\n                    <small>{{::membro.Funcao.Nome}}</small>\n                    <i class=\"icon ion-trash-b\" ng-click=\"EquipeCtrl.removeMembro(membro)\"></i>\n                </ion-item>\n            </ion-list>\n        </div>\n        </div>\n    </ion-content>\n    \n    <ion-footer-bar>\n        <div class=\"col\">\n        <a ui-sref=\"configuration\" class=\"button button-stable button-outline button-block\">Cancelar</a>\n        </div>\n        <div class=\"col\">\n        <a ui-sref=\"recursos\" class=\"button button-balanced button-outline button-block\">Confirmar</a>\n        </div>\n    </ion-footer-bar>\n</ion-view>";
+exports.default = "<ion-view title=\"Equipe\">\n    <ion-nav-buttons side=\"right\">\n        <a ui-sref=\"recursos\" class=\"icon button button-balanced ion-checkmark\" \n            ng-show=\"EquipeCtrl.equipe.length\"></a>\n    </ion-nav-buttons>\n    \n    <ion-content overflow-scroll=\"true\" padding=\"'true'\" class=\"has-header\">\n       <div class=\"\"> \n        <div class=\"\">\n        <ul class=\"list\">\n            <li class=\"item\" \n                ng-repeat=\"funcao in EquipeCtrl.funcoes\" \n                ng-click=\"EquipeCtrl.openForm(funcao)\">\n                <h3><i class=\"icon ion-plus\"></i> {{::funcao.Nome}}</h3>\n                <span>{{funcao._qty}} {{funcao._qty !== 1 ? 'Membros' : 'Membro'}}</span>\n            </li>\n        </ul>\n        </div>\n        \n        <div class=\"\">\n            <form class=\"list\" ng-show=\"EquipeCtrl.showForm\">\n                <label class=\"item item-input item-stacked-label\" name=\"nomeMembro\">\n                    <span class=\"input-label\">Nome</span>\n                    <input type=\"text\" placeholder=\"\" ng-model=\"EquipeCtrl.membro.Nome\">\n                </label>\n                <label class=\"item item-input item-stacked-label\" name=\"experiencia\">\n                    <span class=\"input-label\">Experiência</span>\n                    <input type=\"number\" placeholder=\"\" ng-model=\"EquipeCtrl.membro.Experiencia\">\n                </label>\n                <label class=\"item item-select item-stacked-label\" name=\"unExperiencia\">\n                    <span class=\"input-label\">Unidade exp.</span>\n                    <select>\n                        <option>anos</option>\n                        <option>meses</option>\n                    </select>\n                </label>\n                <div class=\"button-bar\">\n                    <button \n                        class=\"button button-assertive button-block\"\n                        ng-click=\"EquipeCtrl.closeForm()\">Cancelar</button>\n                    <button \n                        class=\"button button-balanced button-block\" \n                        ng-click=\"EquipeCtrl.addMembro()\">Confirmar</button>\n                </div>\n            </form>\n            \n            <ion-list>\n                <ion-item class=\"item-icon-right\" ng-repeat=\"membro in EquipeCtrl.equipe\">\n                    <h2>{{::membro.Nome}}</h2>\n                    <small>{{::membro.Funcao.Nome}}</small>\n                    <i class=\"icon ion-trash-b\" ng-click=\"EquipeCtrl.removeMembro(membro)\"></i>\n                </ion-item>\n            </ion-list>\n        </div>\n        </div>\n    </ion-content>\n    \n    <!--\n    <ion-footer-bar>\n        <div class=\"col\">\n        <a ui-sref=\"configuration\" class=\"button button-stable button-outline button-block\">Cancelar</a>\n        </div>\n        <div class=\"col\">\n        <a ui-sref=\"recursos\" class=\"button button-balanced button-outline button-block\">Confirmar</a>\n        </div>\n    </ion-footer-bar>\n    -->\n</ion-view>";
 
-},{}],14:[function(require,module,exports){
+},{}],16:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -1016,7 +1232,7 @@ function interceptHttp(Session) {
     };
 }
 
-},{}],15:[function(require,module,exports){
+},{}],17:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -1024,14 +1240,14 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = "\n<ion-view title=\"Login\">\n    <ion-content overflow-scroll=\"true\" padding=\"'true'\" class=\"has-header\">\n\n        <div>\n            <i class=\"icon ion-image\"></i>\n        </div>\n\n        <form class=\"list\">\n            <ion-list>\n                <label class=\"item item-input\">\n                    <span class=\"input-label\">Nome de usuário</span>\n                    <input ng-model=\"LoginCtrl.UserName\" type=\"text\" placeholder=\"\">\n                </label>\n                <label class=\"item item-input\">\n                    <span class=\"input-label\">Senha</span>\n                    <input ng-model=\"LoginCtrl.Password\" type=\"password\" placeholder=\"\">\n                </label>\n            </ion-list>\n            <div class=\"spacer\" style=\"height: 40px;\"></div>\n            <button type=\"submit\" class=\"button button-balanced button-block\"\n            ng-click=\"LoginCtrl.login($event, LoginCtrl.UserName, LoginCtrl.Password)\">Entrar</button>\n        </form>\n\t\t\n    </ion-content>\n</ion-view>\n";
 
-},{}],16:[function(require,module,exports){
+},{}],18:[function(require,module,exports){
 'use strict';
-
-var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
 
 Object.defineProperty(exports, "__esModule", {
     value: true
 });
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 var _object = require('../utils/object.assign');
 
@@ -1041,7 +1257,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
-var LoginController = (function () {
+var LoginController = function () {
     function LoginController($state, UserModel, Storage, Session) {
         _classCallCheck(this, LoginController);
 
@@ -1049,8 +1265,8 @@ var LoginController = (function () {
         this.Storage = Storage;
         this.Session = Session;
         this.UserModel = UserModel;
-        this.UserName = 'thlima';
-        this.Password = 'thlima';
+        this.UserName = '';
+        this.Password = '';
     }
 
     _createClass(LoginController, [{
@@ -1074,7 +1290,7 @@ var LoginController = (function () {
     }]);
 
     return LoginController;
-})();
+}();
 
 exports.default = LoginController;
 
@@ -1101,15 +1317,15 @@ function enterOnApp(user) {
     return this.$state.go('configuration');
 }
 
-},{"../utils/object.assign":31}],17:[function(require,module,exports){
+},{"../utils/object.assign":36}],19:[function(require,module,exports){
 'use strict';
-
-var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
 
 Object.defineProperty(exports, "__esModule", {
     value: true
 });
 exports.Aguardando = exports.AtividadeModel = exports.AtividadeEntity = undefined;
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 var _settings = require('../core/settings');
 
@@ -1127,13 +1343,13 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 
 var _sortByNome = (0, _sorts.sortByProp)('Nome');
 
-var AtividadeEntity = exports.AtividadeEntity = (function (_TreeEntity) {
+var AtividadeEntity = exports.AtividadeEntity = function (_TreeEntity) {
     _inherits(AtividadeEntity, _TreeEntity);
 
     function AtividadeEntity(obj) {
         _classCallCheck(this, AtividadeEntity);
 
-        var _nome = undefined;
+        var _nome = void 0;
 
         var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(AtividadeEntity).call(this, obj));
 
@@ -1169,9 +1385,9 @@ var AtividadeEntity = exports.AtividadeEntity = (function (_TreeEntity) {
     }]);
 
     return AtividadeEntity;
-})(_TreeModel2.TreeEntity);
+}(_TreeModel2.TreeEntity);
 
-var AtividadeModel = exports.AtividadeModel = (function (_TreeModel) {
+var AtividadeModel = exports.AtividadeModel = function (_TreeModel) {
     _inherits(AtividadeModel, _TreeModel);
 
     function AtividadeModel() {
@@ -1273,10 +1489,11 @@ var AtividadeModel = exports.AtividadeModel = (function (_TreeModel) {
     }]);
 
     return AtividadeModel;
-})(_TreeModel2.TreeModel);
+}(_TreeModel2.TreeModel);
 // export function AtividadeModel(...args):TreeModel {
 // 	return new TreeModel('atividades', URLs.endpoints.atividades, 'AtividadePaiId', AtividadeEntity, ...args);
 // }
+
 
 var Aguardando = exports.Aguardando = new AtividadeEntity({
     Id: 0,
@@ -1291,7 +1508,7 @@ var Aguardando = exports.Aguardando = new AtividadeEntity({
     DataAtualizacao: new Date().toISOString()
 });
 
-},{"../core/settings":9,"../utils/sorts":32,"./TreeModel":25}],18:[function(require,module,exports){
+},{"../core/settings":11,"../utils/sorts":37,"./TreeModel":30}],20:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -1309,7 +1526,7 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-var AtividadeTarefaEntity = (function (_BasicEntity) {
+var AtividadeTarefaEntity = function (_BasicEntity) {
     _inherits(AtividadeTarefaEntity, _BasicEntity);
 
     function AtividadeTarefaEntity(obj) {
@@ -1324,7 +1541,7 @@ var AtividadeTarefaEntity = (function (_BasicEntity) {
     }
 
     return AtividadeTarefaEntity;
-})(_BasicModel.BasicEntity);
+}(_BasicModel.BasicEntity);
 
 function AtividadeTarefaModel() {
     for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
@@ -1334,15 +1551,15 @@ function AtividadeTarefaModel() {
     return new (Function.prototype.bind.apply(_BasicModel.BasicModel, [null].concat(['atividadestarefa', _settings.URLs.endpoints.atividadesTarefa, AtividadeTarefaEntity], args)))();
 }
 
-},{"../core/settings":9,"./BasicModel":19}],19:[function(require,module,exports){
+},{"../core/settings":11,"./BasicModel":21}],21:[function(require,module,exports){
 'use strict';
-
-var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
 
 Object.defineProperty(exports, "__esModule", {
     value: true
 });
 exports.BasicModel = exports.BasicEntity = undefined;
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 var _settings = require('../core/settings');
 
@@ -1380,7 +1597,7 @@ var BasicEntity = exports.BasicEntity = function BasicEntity(obj) {
     });
 };
 
-var BasicModel = exports.BasicModel = (function () {
+var BasicModel = exports.BasicModel = function () {
     function BasicModel(type) {
         var url = arguments.length <= 1 || arguments[1] === undefined ? '' : arguments[1];
         var __model__ = arguments[2];
@@ -1545,98 +1762,17 @@ var BasicModel = exports.BasicModel = (function () {
     }]);
 
     return BasicModel;
-})();
+}();
 
-},{"../core/settings":9,"../utils/object.assign":31,"../utils/sorts":32}],20:[function(require,module,exports){
+},{"../core/settings":11,"../utils/object.assign":36,"../utils/sorts":37}],22:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
     value: true
 });
-exports.EmpresaModel = EmpresaModel;
+exports.CenarioDiaModel = exports.CenarioDiaEntity = undefined;
 
-var _settings = require('../core/settings');
-
-var _BasicModel = require('./BasicModel');
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-var EmpresaEntity = (function (_BasicEntity) {
-    _inherits(EmpresaEntity, _BasicEntity);
-
-    function EmpresaEntity(obj) {
-        _classCallCheck(this, EmpresaEntity);
-
-        var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(EmpresaEntity).call(this, obj));
-
-        _this.RazaoSocial = obj.RazaoSocial.split(' ').map(function (str) {
-            return str.charAt(0).toUpperCase() + str.substring(1).toLowerCase();
-        }).join(' ');
-        return _this;
-    }
-
-    return EmpresaEntity;
-})(_BasicModel.BasicEntity);
-
-function EmpresaModel() {
-    for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
-        args[_key] = arguments[_key];
-    }
-
-    return new (Function.prototype.bind.apply(_BasicModel.BasicModel, [null].concat(['empresas', _settings.URLs.endpoints.empresas, EmpresaEntity], args)))();
-}
-
-},{"../core/settings":9,"./BasicModel":19}],21:[function(require,module,exports){
-'use strict';
-
-Object.defineProperty(exports, "__esModule", {
-    value: true
-});
-exports.FuncaoModel = FuncaoModel;
-
-var _settings = require('../core/settings');
-
-var _BasicModel = require('./BasicModel');
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-var FuncaoEntity = (function (_BasicEntity) {
-    _inherits(FuncaoEntity, _BasicEntity);
-
-    function FuncaoEntity(obj) {
-        _classCallCheck(this, FuncaoEntity);
-
-        return _possibleConstructorReturn(this, Object.getPrototypeOf(FuncaoEntity).call(this, obj));
-    }
-
-    return FuncaoEntity;
-})(_BasicModel.BasicEntity);
-
-function FuncaoModel() {
-    for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
-        args[_key] = arguments[_key];
-    }
-
-    return new (Function.prototype.bind.apply(_BasicModel.BasicModel, [null].concat(['funcoes', _settings.URLs.endpoints.funcoes, FuncaoEntity], args)))();
-}
-
-},{"../core/settings":9,"./BasicModel":19}],22:[function(require,module,exports){
-'use strict';
-
-var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
-
-Object.defineProperty(exports, "__esModule", {
-    value: true
-});
-exports.LevantamentoModel = exports.LevantamentoEntity = undefined;
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 var _settings = require('../core/settings');
 
@@ -1662,7 +1798,321 @@ month = month < 10 ? '0' + month : month;
 day = day < 10 ? '0' + day : day;
 var _id = parseInt('' + year + month + day + '00000001', 10);
 
-var LevantamentoEntity = exports.LevantamentoEntity = (function () {
+var CenarioDiaEntity = exports.CenarioDiaEntity = function () {
+    function CenarioDiaEntity(obj) {
+        _classCallCheck(this, CenarioDiaEntity);
+
+        this.Id = _id++;
+        this.UserId = obj.UserId;
+        this.ObraId = obj.ObraId;
+        this.EmpresaId = obj.EmpresaId;
+        this.TarefaId = obj.TarefaId;
+        this.CenarioValorId = obj.CenarioValorId;
+        this.Inicio = obj.Inicio || new Date().toISOString();
+        this.Fim = '';
+        this.DataCriacao = new Date().toISOString();
+        this.DataAtualizacao = new Date().toISOString();
+    }
+
+    _createClass(CenarioDiaEntity, [{
+        key: 'finish',
+        value: function finish(time) {
+            this.Fim = time || new Date().toISOString();
+            this.DataAtualizacao = new Date().toISOString();
+            return true;
+        }
+    }]);
+
+    return CenarioDiaEntity;
+}();
+
+var alreadyCreateds = {};
+
+var CenarioDiaModel = exports.CenarioDiaModel = function (_BasicModel) {
+    _inherits(CenarioDiaModel, _BasicModel);
+
+    function CenarioDiaModel() {
+        var _Object$getPrototypeO;
+
+        _classCallCheck(this, CenarioDiaModel);
+
+        for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
+            args[_key] = arguments[_key];
+        }
+
+        var _this = _possibleConstructorReturn(this, (_Object$getPrototypeO = Object.getPrototypeOf(CenarioDiaModel)).call.apply(_Object$getPrototypeO, [this, 'cenariosDia', _settings.URLs.endpoints.cenariosDia, CenarioDiaEntity].concat(args)));
+
+        _this.$httpParamSerializer = args[args.length - 1];
+        return _this;
+    }
+
+    _createClass(CenarioDiaModel, [{
+        key: 'cancel',
+        value: function cancel(cenarioDia) {
+            return this.unqueue(cenarioDia);
+        }
+    }, {
+        key: 'create',
+        value: function create(item) {
+            var cenarioDia = new this._model(item);
+            if (this._map[cenarioDia.Id] === undefined) {
+                this._map[cenarioDia.Id] = cenarioDia;
+                this._list.push(cenarioDia);
+            } else {
+                this._map[cenarioDia.Id] = (0, _object2.default)(this._map[cenarioDia.Id], cenarioDia);
+            }
+            this.Storage.save(this.type, this.list);
+            return cenarioDia;
+        }
+    }, {
+        key: 'post',
+        value: function post(items, time) {
+            var _this2 = this;
+
+            items = Array.isArray(items) ? items : [items];
+            return items.forEach(function (item) {
+                if (!item.Fim) {
+                    var fim = item.finish(time || new Date().toISOString());
+                    if (!fim) {
+                        return;
+                    }
+                }
+                var _item = (0, _object2.default)({}, item);
+                delete _item.Id;
+                return _this2.$http({
+                    url: '' + _settings.URLs.services + _this2.url,
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+                    data: _this2.$httpParamSerializer(_item),
+                    params: { identify: true }
+                }).then(function (resp) {
+                    _this2.unqueue(item);
+                    _this2.Storage.save(_this2.type, _this2.list);
+                }).catch(function (err) {
+                    // let storage = this.Storage.get(this.type);
+                    // storage[item.Id] = item;
+                    // this.Storage.save(this.type, storage);
+                });
+            });
+        }
+    }]);
+
+    return CenarioDiaModel;
+}(_BasicModel2.BasicModel);
+
+},{"../core/settings":11,"../utils/object.assign":36,"./BasicModel":21}],23:[function(require,module,exports){
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+exports.CenarioModel = CenarioModel;
+
+var _settings = require('../core/settings');
+
+var _BasicModel = require('./BasicModel');
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var CenarioEntity = function (_BasicEntity) {
+    _inherits(CenarioEntity, _BasicEntity);
+
+    function CenarioEntity(obj) {
+        _classCallCheck(this, CenarioEntity);
+
+        var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(CenarioEntity).call(this, obj));
+
+        _this.Nome = obj.Nome.split(' ').map(function (str) {
+            return str.charAt(0).toUpperCase() + str.substring(1).toLowerCase();
+        }).join(' ');
+        _this.selected = null;
+        return _this;
+    }
+
+    _createClass(CenarioEntity, [{
+        key: 'select',
+        value: function select(item) {
+            this.selected = item;
+        }
+    }]);
+
+    return CenarioEntity;
+}(_BasicModel.BasicEntity);
+
+function CenarioModel() {
+    for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
+        args[_key] = arguments[_key];
+    }
+
+    return new (Function.prototype.bind.apply(_BasicModel.BasicModel, [null].concat(['cenario', _settings.URLs.endpoints.cenarios, CenarioEntity], args)))();
+}
+
+},{"../core/settings":11,"./BasicModel":21}],24:[function(require,module,exports){
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+exports.CenarioValorModel = CenarioValorModel;
+
+var _settings = require('../core/settings');
+
+var _BasicModel = require('./BasicModel');
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var CenarioValorEntity = function (_BasicEntity) {
+    _inherits(CenarioValorEntity, _BasicEntity);
+
+    function CenarioValorEntity(obj) {
+        _classCallCheck(this, CenarioValorEntity);
+
+        var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(CenarioValorEntity).call(this, obj));
+
+        _this.Nome = obj.Nome.split(' ').map(function (str) {
+            return str.charAt(0).toUpperCase() + str.substring(1).toLowerCase();
+        }).join(' ');
+        return _this;
+    }
+
+    return CenarioValorEntity;
+}(_BasicModel.BasicEntity);
+
+function CenarioValorModel() {
+    for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
+        args[_key] = arguments[_key];
+    }
+
+    return new (Function.prototype.bind.apply(_BasicModel.BasicModel, [null].concat(['cenariovalor', _settings.URLs.endpoints.cenariosValor, CenarioValorEntity], args)))();
+}
+
+},{"../core/settings":11,"./BasicModel":21}],25:[function(require,module,exports){
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+exports.EmpresaModel = EmpresaModel;
+
+var _settings = require('../core/settings');
+
+var _BasicModel = require('./BasicModel');
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var EmpresaEntity = function (_BasicEntity) {
+    _inherits(EmpresaEntity, _BasicEntity);
+
+    function EmpresaEntity(obj) {
+        _classCallCheck(this, EmpresaEntity);
+
+        var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(EmpresaEntity).call(this, obj));
+
+        _this.RazaoSocial = obj.RazaoSocial.split(' ').map(function (str) {
+            return str.charAt(0).toUpperCase() + str.substring(1).toLowerCase();
+        }).join(' ');
+        return _this;
+    }
+
+    return EmpresaEntity;
+}(_BasicModel.BasicEntity);
+
+function EmpresaModel() {
+    for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
+        args[_key] = arguments[_key];
+    }
+
+    return new (Function.prototype.bind.apply(_BasicModel.BasicModel, [null].concat(['empresas', _settings.URLs.endpoints.empresas, EmpresaEntity], args)))();
+}
+
+},{"../core/settings":11,"./BasicModel":21}],26:[function(require,module,exports){
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+exports.FuncaoModel = FuncaoModel;
+
+var _settings = require('../core/settings');
+
+var _BasicModel = require('./BasicModel');
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var FuncaoEntity = function (_BasicEntity) {
+    _inherits(FuncaoEntity, _BasicEntity);
+
+    function FuncaoEntity(obj) {
+        _classCallCheck(this, FuncaoEntity);
+
+        return _possibleConstructorReturn(this, Object.getPrototypeOf(FuncaoEntity).call(this, obj));
+    }
+
+    return FuncaoEntity;
+}(_BasicModel.BasicEntity);
+
+function FuncaoModel() {
+    for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
+        args[_key] = arguments[_key];
+    }
+
+    return new (Function.prototype.bind.apply(_BasicModel.BasicModel, [null].concat(['funcoes', _settings.URLs.endpoints.funcoes, FuncaoEntity], args)))();
+}
+
+},{"../core/settings":11,"./BasicModel":21}],27:[function(require,module,exports){
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+exports.LevantamentoModel = exports.LevantamentoEntity = undefined;
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _settings = require('../core/settings');
+
+var _BasicModel2 = require('./BasicModel');
+
+var _object = require('../utils/object.assign');
+
+var _object2 = _interopRequireDefault(_object);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+var now = new Date(),
+    year = now.getFullYear(),
+    month = now.getMonth(),
+    day = now.getDate();
+month = month < 10 ? '0' + month : month;
+day = day < 10 ? '0' + day : day;
+var _id = parseInt('' + year + month + day + '00000001', 10);
+
+var LevantamentoEntity = exports.LevantamentoEntity = function () {
     function LevantamentoEntity(obj) {
         _classCallCheck(this, LevantamentoEntity);
 
@@ -1717,9 +2167,9 @@ var LevantamentoEntity = exports.LevantamentoEntity = (function () {
     }]);
 
     return LevantamentoEntity;
-})();
+}();
 
-var LevantamentoModel = exports.LevantamentoModel = (function (_BasicModel) {
+var LevantamentoModel = exports.LevantamentoModel = function (_BasicModel) {
     _inherits(LevantamentoModel, _BasicModel);
 
     function LevantamentoModel() {
@@ -1792,9 +2242,9 @@ var LevantamentoModel = exports.LevantamentoModel = (function (_BasicModel) {
     }]);
 
     return LevantamentoModel;
-})(_BasicModel2.BasicModel);
+}(_BasicModel2.BasicModel);
 
-},{"../core/settings":9,"../utils/object.assign":31,"./BasicModel":19}],23:[function(require,module,exports){
+},{"../core/settings":11,"../utils/object.assign":36,"./BasicModel":21}],28:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -1812,7 +2262,7 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-var ObraEntity = (function (_TreeEntity) {
+var ObraEntity = function (_TreeEntity) {
     _inherits(ObraEntity, _TreeEntity);
 
     function ObraEntity(obj) {
@@ -1822,7 +2272,7 @@ var ObraEntity = (function (_TreeEntity) {
     }
 
     return ObraEntity;
-})(_TreeModel.TreeEntity);
+}(_TreeModel.TreeEntity);
 
 function ObraModel() {
     for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
@@ -1832,7 +2282,7 @@ function ObraModel() {
     return new (Function.prototype.bind.apply(_TreeModel.TreeModel, [null].concat(['obras', _settings.URLs.endpoints.obras, 'ObraId', ObraEntity], args)))();
 }
 
-},{"../core/settings":9,"./TreeModel":25}],24:[function(require,module,exports){
+},{"../core/settings":11,"./TreeModel":30}],29:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -1851,7 +2301,7 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-var TarefaEntity = exports.TarefaEntity = (function (_BasicEntity) {
+var TarefaEntity = exports.TarefaEntity = function (_BasicEntity) {
     _inherits(TarefaEntity, _BasicEntity);
 
     function TarefaEntity(obj) {
@@ -1861,7 +2311,7 @@ var TarefaEntity = exports.TarefaEntity = (function (_BasicEntity) {
     }
 
     return TarefaEntity;
-})(_BasicModel.BasicEntity);
+}(_BasicModel.BasicEntity);
 
 function TarefaModel() {
     for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
@@ -1871,15 +2321,15 @@ function TarefaModel() {
     return new (Function.prototype.bind.apply(_BasicModel.BasicModel, [null].concat(['tarefas', _settings.URLs.endpoints.tarefas, TarefaEntity], args)))();
 }
 
-},{"../core/settings":9,"./BasicModel":19}],25:[function(require,module,exports){
+},{"../core/settings":11,"./BasicModel":21}],30:[function(require,module,exports){
 'use strict';
-
-var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
 
 Object.defineProperty(exports, "__esModule", {
     value: true
 });
 exports.TreeModel = exports.TreeEntity = undefined;
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 var _settings = require('../core/settings');
 
@@ -1895,7 +2345,7 @@ function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
-var TreeEntity = exports.TreeEntity = (function () {
+var TreeEntity = exports.TreeEntity = function () {
     function TreeEntity(obj) {
         var _this = this;
 
@@ -1923,9 +2373,9 @@ var TreeEntity = exports.TreeEntity = (function () {
     }]);
 
     return TreeEntity;
-})();
+}();
 
-var TreeModel = exports.TreeModel = (function () {
+var TreeModel = exports.TreeModel = function () {
     function TreeModel(type) {
         var url = arguments.length <= 1 || arguments[1] === undefined ? '' : arguments[1];
         var parentProp = arguments[2];
@@ -2078,19 +2528,25 @@ var TreeModel = exports.TreeModel = (function () {
     }]);
 
     return TreeModel;
-})();
+}();
 
-},{"../core/settings":9,"../utils/object.assign":31,"../utils/sorts":32}],26:[function(require,module,exports){
-"use strict";
-
-var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
+},{"../core/settings":11,"../utils/object.assign":36,"../utils/sorts":37}],31:[function(require,module,exports){
+'use strict';
 
 Object.defineProperty(exports, "__esModule", {
     value: true
 });
 exports.defaultUser = undefined;
 
-var _settings = require("../core/settings");
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _settings = require('../core/settings');
+
+var _object = require('../utils/object.assign');
+
+var _object2 = _interopRequireDefault(_object);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
@@ -2106,7 +2562,7 @@ var defaultUser = exports.defaultUser = {
     Password: ""
 };
 
-var UserModel = (function () {
+var UserModel = function () {
     function UserModel($window, $q, $http) {
         _classCallCheck(this, UserModel);
 
@@ -2119,20 +2575,20 @@ var UserModel = (function () {
     }
 
     _createClass(UserModel, [{
-        key: "setUser",
+        key: 'setUser',
         value: function setUser(userObj, password) {
-            this.user = Object.assign({}, defaultUser, userObj);
+            this.user = (0, _object2.default)({}, defaultUser, userObj);
             this.user.Password = this.encrypt(password);
             _password[this.user.UserId] = password;
             return this.user;
         }
     }, {
-        key: "getToken",
+        key: 'getToken',
         value: function getToken() {
             return this.user ? this.user.Token : '';
         }
     }, {
-        key: "checkOnline",
+        key: 'checkOnline',
         value: function checkOnline(username, password) {
             var _this = this;
 
@@ -2143,14 +2599,14 @@ var UserModel = (function () {
                 }
             }).then(function (resp) {
                 if (resp.status !== 200) {
-                    var data = resp && resp.data ? resp.data.Message + " > " + resp.data.MessageDetail : 'No connection';
+                    var data = resp && resp.data ? resp.data.Message + ' > ' + resp.data.MessageDetail : 'No connection';
                     throw new Error(data);
                 }
                 return _this.setUser(resp.data, password);
             });
         }
     }, {
-        key: "checkCredentials",
+        key: 'checkCredentials',
         value: function checkCredentials(users, username, password) {
             var _this2 = this;
 
@@ -2169,18 +2625,18 @@ var UserModel = (function () {
     }]);
 
     return UserModel;
-})();
+}();
 
 exports.default = UserModel;
 
-},{"../core/settings":9}],27:[function(require,module,exports){
+},{"../core/settings":11,"../utils/object.assign":36}],32:[function(require,module,exports){
 'use strict';
-
-var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
 
 Object.defineProperty(exports, "__esModule", {
     value: true
 });
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 var _AtividadeModel = require('../models/AtividadeModel');
 
@@ -2188,8 +2644,8 @@ function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
-var RecursosController = (function () {
-    function RecursosController($q, $state, Session, AtividadeModel, LevantamentoModel) {
+var RecursosController = function () {
+    function RecursosController($q, $state, Session, AtividadeModel, LevantamentoModel, CenarioDiaModel) {
         var _this = this;
 
         _classCallCheck(this, RecursosController);
@@ -2200,6 +2656,7 @@ var RecursosController = (function () {
         this.atividades = [_AtividadeModel.Aguardando];
         this.LevantamentoModel = LevantamentoModel;
         this.levantamentos = LevantamentoModel.list;
+        this.CenarioDiaModel = CenarioDiaModel;
         AtividadeModel.get(this.Session.tarefa.Atividades).then(function (resp) {
             var _atividades;
 
@@ -2211,11 +2668,8 @@ var RecursosController = (function () {
             (_atividades = _this.atividades).push.apply(_atividades, _toConsumableArray(resp.filter(function (item) {
                 return parents.indexOf(item.Id) < 0;
             })));
-            console.log(_this.atividades);
         });
         this.equipe = Session.equipe;
-        console.log(this.atividades);
-        console.log(this.equipe);
     }
 
     _createClass(RecursosController, [{
@@ -2230,14 +2684,18 @@ var RecursosController = (function () {
         key: 'send',
         value: function send() {
             var time = new Date().toISOString();
-            return this.LevantamentoModel.post(this.LevantamentoModel.list, time);
+            var levantamentos = this.LevantamentoModel.post(this.LevantamentoModel.list, time);
+            var cenarios = this.CenarioDiaModel.post(this.CenarioDiaModel.list, time);
+            var obj = { levantamentos: levantamentos, cenarios: cenarios };
+            return obj;
         }
     }, {
         key: 'endSession',
         value: function endSession($event) {
             var _this2 = this;
 
-            this.$q.all(this.send()).then(function (resp) {
+            var promises = this.send();
+            this.$q.all(promises).then(function (resp) {
                 _this2.Session.end();
                 return _this2.$state.go('login');
             });
@@ -2245,34 +2703,35 @@ var RecursosController = (function () {
     }]);
 
     return RecursosController;
-})();
+}();
 
 exports.default = RecursosController;
 
-},{"../models/AtividadeModel":17}],28:[function(require,module,exports){
+},{"../models/AtividadeModel":19}],33:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
     value: true
 });
-exports.default = "<ion-view title=\"Recursos\">\n    <ion-content overflow-scroll=\"true\" padding=\"'true'\" class=\"has-header\">\n        <div class=\"button-bar\">\n            <button class=\"button button-stable button-block\">Cenários</button>\n            <button class=\"button button-stable button-block\">Recursos</button>\n            <button class=\"button button-stable button-block\">Produção</button>\n        </div>\n        <ion-list>\n            <ion-item class=\"item-thumbnail-left\" \n                ng-if=\"atividade.Membros.length\" \n                ng-repeat=\"atividade in RecursosCtrl.atividades\">\n                <div class=\"item item-divider\" ng-click=\"RecursosCtrl.mudarAtividade(atividade.Membros)\">\n                    {{::atividade.Nome}}\n                </div>\n                <img>\n                <ion-list type=\"list-inset\" ng-repeat=\"membro in atividade.Membros\">\n                    <div ng-click=\"RecursosCtrl.mudarAtividade([membro])\">\n                        <h2>{{::membro.Nome}}</h2>\n                        <small>{{::membro.Funcao.Nome}}</small>\n                    </div>\n                </div>\n            </ion-item>\n        </ion-list>\n    </ion-content>\n    \n    <ion-footer-bar class=\"row\" ng-show=\"RecursosCtrl.levantamentos\">\n        <div class=\"col\"></div>\n        <div class=\"col\">\n            <button ng-click=\"RecursosCtrl.endSession($event)\" class=\"button button-balanced button-outline button-block\">Confirmar</a>\n        </div>\n    </ion-footer-bar>\n</ion-view>";
+exports.default = "<ion-view title=\"Recursos\">\n    <ion-nav-buttons side=\"right\">\n        <button class=\"icon button button-balanced ion-android-send\" \n            ng-click=\"RecursosCtrl.endSession($event)\"></button>\n    </ion-nav-buttons>\n    \n    <div class=\"tabs tabs-striped tabs-top tabs-balanced\">\n        <a ui-sref=\"cenarios\" ui-sref-active=\"active\" class=\"tab-item\">\n            Cenários\n        </a>\n        <a ui-sref=\"recursos\" ui-sref-active=\"active\" class=\"tab-item\">\n            Recursos\n        </a>\n        <a ui-sref=\"producao\" ui-sref-active=\"active\" class=\"tab-item\">\n            Produção\n        </a>\n    </div>\n\n    <ion-content overflow-scroll=\"true\" padding=\"'true'\" class=\"has-header has-tabs-top\">\n        \n        <ion-list>\n            <ion-item class=\"item-thumbnail-left\" \n                ng-if=\"atividade.Membros.length\" \n                ng-repeat=\"atividade in RecursosCtrl.atividades\">\n                <div class=\"item item-divider\" ng-click=\"RecursosCtrl.mudarAtividade(atividade.Membros)\">\n                    {{::atividade.Nome}}\n                </div>\n                <img>\n                <ion-list type=\"list-inset\" ng-repeat=\"membro in atividade.Membros\">\n                    <div ng-click=\"RecursosCtrl.mudarAtividade([membro])\">\n                        <h2>{{::membro.Nome}}</h2>\n                        <small>{{::membro.Funcao.Nome}}</small>\n                    </div>\n                    <i class=\"icon ion-android-textsms\"></ion>\n                </div>\n            </ion-item>\n        </ion-list>\n    </ion-content>\n    \n    <!--\n    <ion-footer-bar class=\"row\" ng-show=\"RecursosCtrl.levantamentos\">\n        <div class=\"col\"></div>\n        <div class=\"col\">\n            <button  class=\"button button-balanced button-outline button-block\">Confirmar</a>\n        </div>\n    </ion-footer-bar>\n    -->\n</ion-view>";
 
-},{}],29:[function(require,module,exports){
+},{}],34:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
     value: true
 });
-exports.default = "<ion-side-menus enable-menu-with-back-views=\"false\">\n    <ion-side-menu-content>\n        <ion-nav-bar class=\"bar-stable\">\n            <ion-nav-back-button></ion-nav-back-button>\n            <ion-nav-buttons side=\"left\">\n                <button class=\"button button-icon button-clear ion-navicon\" menu-toggle=\"\"></button>\n            </ion-nav-buttons>\n        </ion-nav-bar>\n        <ion-nav-view name=\"side-menu\"></ion-nav-view>\n    </ion-side-menu-content>\n    <ion-side-menu side=\"left\">\n        <ion-header-bar class=\"bar-stable\">\n            <div class=\"title\">Menu</div>\n        </ion-header-bar>\n        <ion-content padding=\"false\" class=\"side-menu-left has-header\" ion-content=\"\">\n            <ion-list>\n                <ion-item ui-sref=\"configuration\" menu-close=\"\">Configuração</ion-item>\n                <ion-item>Item 2</ion-item>\n                <ion-item>Item 3</ion-item>\n            </ion-list>\n            <div class=\"spacer\" style=\"width: 268px; height: 291px;\"></div>\n            <ion-list>\n                <ion-item ui-sref=\"login\" menu-close=\"\">Logout</ion-item>\n            </ion-list>\n        </ion-content>\n    </ion-side-menu>\n</ion-side-menus>";
+exports.default = "<ion-side-menus enable-menu-with-back-views=\"false\">\n    <ion-side-menu-content>\n        <ion-nav-bar class=\"bar-balanced\">\n            <ion-nav-back-button></ion-nav-back-button>\n            <ion-nav-buttons side=\"left\">\n                <button class=\"button button-icon button-clear ion-navicon\" menu-toggle=\"\"></button>\n            </ion-nav-buttons>\n        </ion-nav-bar>\n        <ion-nav-view name=\"side-menu\"></ion-nav-view>\n    </ion-side-menu-content>\n    <ion-side-menu side=\"left\">\n        <ion-header-bar class=\"bar-stable\">\n            <div class=\"title\">Menu</div>\n        </ion-header-bar>\n        <ion-content padding=\"false\" class=\"side-menu-left has-header\" ion-content=\"\">\n            <ion-list>\n                <ion-item ui-sref=\"configuration\" menu-close=\"\">Configuração</ion-item>\n                <ion-item>Item 2</ion-item>\n                <ion-item>Item 3</ion-item>\n            </ion-list>\n            <div class=\"spacer\" style=\"width: 268px; height: 291px;\"></div>\n            <ion-list>\n                <ion-item ui-sref=\"login\" menu-close=\"\">Logout</ion-item>\n            </ion-list>\n        </ion-content>\n    </ion-side-menu>\n</ion-side-menus>";
 
-},{}],30:[function(require,module,exports){
+},{}],35:[function(require,module,exports){
 'use strict';
 
-var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })(); /// <reference path="../../typings/lz-string/lz-string.d.ts" />
-
 Object.defineProperty(exports, "__esModule", {
     value: true
 });
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }(); /// <reference path="../../typings/lz-string/lz-string.d.ts" />
+
 
 var _settings = require('../core/settings');
 
@@ -2280,7 +2739,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 
 var _keys = {};
 
-var Storage = (function () {
+var Storage = function () {
     function Storage($window) {
         _classCallCheck(this, Storage);
 
@@ -2321,11 +2780,11 @@ var Storage = (function () {
     }]);
 
     return Storage;
-})();
+}();
 
 exports.default = Storage;
 
-},{"../core/settings":9}],31:[function(require,module,exports){
+},{"../core/settings":11}],36:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -2357,7 +2816,7 @@ var assign = Object.assign || function (target) {
 };
 exports.default = assign;
 
-},{}],32:[function(require,module,exports){
+},{}],37:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {

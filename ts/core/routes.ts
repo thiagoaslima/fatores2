@@ -5,6 +5,8 @@ import equipe from '../equipe/equipe.template';
 import recursos from '../recursos/recursos.template';
 import atividades from '../atividades/atividades.template';
 import cenarios from '../cenarios/cenarios.template';
+import producao from '../producao/producao.template';
+import produto from '../producao/produto.template';
 
 export default function router($stateProvider, $urlRouterProvider) {
     const orig = $stateProvider.state;
@@ -17,13 +19,21 @@ export default function router($stateProvider, $urlRouterProvider) {
     }
 
     const fetch = function(model, attempt = 0) {
-        return model.fetch().finally(resp => {
-            console.log(model.type, attempt);
-
+        return model.fetch().then(resp => {
             if (model.list.length) {
                 return model;
             }
 
+            if (attempt > 5) {
+                throw new Error('Não foi possui recuperar dados de ' + model.type);
+            }
+
+            return fetch(model, ++attempt);
+        }).catch(err => {
+            if (model.list.length) {
+                return model;
+            }
+            
             if (attempt > 5) {
                 throw new Error('Não foi possui recuperar dados de ' + model.type);
             }
@@ -94,6 +104,30 @@ export default function router($stateProvider, $urlRouterProvider) {
 
                         cenariosValor: ['CenarioValorModel', function(model) {
                             return fetch(model);
+                        }],
+                        
+                        producao: ['ProducaoModel', 'Storage', function(ProducaoModel, Storage) {
+                            let producao = Storage.get('producao');
+                            
+                            if (!producao) {
+                                return true;
+                            }
+                            
+                            return ProducaoModel.post(producao, new Date().toISOString());
+                        }],
+                        
+                        cenariosDia: ['CenarioDiaModel', 'Storage', function(CenarioDiaModel, Storage) {
+                            if (CenarioDiaModel.list.length) {
+                                return CenarioDiaModel.post(CenarioDiaModel.list, new Date().toISOString());    
+                            }
+                            return true;
+                        }],
+                        
+                        levantamentos: ['LevantamentoModel', 'Storage', function(LevantamentoModel, Storage) {
+                            if (LevantamentoModel.list.length) {
+                                return LevantamentoModel.post(LevantamentoModel.list, new Date().toISOString());    
+                            }
+                            return true;
                         }]
                     }
                 }
@@ -159,6 +193,56 @@ export default function router($stateProvider, $urlRouterProvider) {
         })
 
 
+        .state('producao', {
+            parent: 'menu',
+            url: '/producao',
+            views: {
+                'side-menu': {
+                    template: producao,
+                    controller: 'ProducaoController',
+                    controllerAs: 'ProducaoCtrl',
+                }
+            }
+        })
+
+        .state('produto-novo', {
+            parent: 'menu',
+            url: '/produto',
+            views: {
+                'side-menu': {
+                    template: produto,
+                    controller: 'ProdutoController',
+                    controllerAs: 'ProdutoCtrl',
+                    resolve: {
+                        produto: function() {
+                            return Object.create(null);
+                        }
+                    }
+                }
+            }
+        })
+        
+        .state('produto', {
+            parent: 'menu',
+            url: '/produto/:id',
+            views: {
+                'side-menu': {
+                    template: produto,
+                    controller: 'ProdutoController',
+                    controllerAs: 'ProdutoCtrl',
+                    params: {id: 0},
+                    resolve: {
+                        produto: ['$stateParams', 'ProducaoModel', function($stateParams, ProducaoModel) {
+                            const id = parseInt($stateParams.id, 10);
+                            return ProducaoModel.get(id).then(resp => {
+                                return resp[0];
+                            });
+                            
+                        }]
+                    }
+                }
+            }
+        })
         ;
 
     // if none of the above states are matched, use this as the fallback

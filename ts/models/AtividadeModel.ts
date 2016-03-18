@@ -5,7 +5,7 @@ import { sortById, sortByProp } from '../utils/sorts';
 let _sortByNome = sortByProp('Nome');
 
 export class AtividadeEntity extends TreeEntity {
-	public Id: number;
+    public Id: number;
     public AtividadePaiId: number;
 	public Nome: string;
     public Cor: string;

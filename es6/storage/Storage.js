@@ -10,9 +10,11 @@ export default class Storage {
     }
     compact(value) {
         return this.LZString.compressToUTF16(JSON.stringify(value));
+        // return JSON.stringify(value);
     }
     descompact(value) {
         return JSON.parse(this.LZString.decompressFromUTF16(value));
+        // return JSON.parse(value);
     }
     save(type, values) {
         this._cache[type] = values;
@@ -27,5 +29,8 @@ export default class Storage {
             }
         }
         return this._cache[type] || null;
+    }
+    erase(type) {
+        this.local.removeItem(type);
     }
 }
