@@ -3,7 +3,6 @@ export default class ProducaoController {
     public produtos;
     
     constructor(private $state, Session, ProducaoModel) {
-        debugger;
         this.tarefa = Session.tarefa;
         this.produtos = ProducaoModel.list;
     }

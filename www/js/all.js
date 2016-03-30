@@ -985,7 +985,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 var URLs = exports.URLs = {
     // services: 'http://localhost:4720',
-    services: 'https://fatoresweb.azurewebsites.net/api/v1',
+    services: 'http://fatoresweb.azurewebsites.net/api/v1',
     endpoints: {
         token: '/token',
         empresas: '/empresa',
@@ -2987,7 +2987,6 @@ var ProducaoController = function () {
         _classCallCheck(this, ProducaoController);
 
         this.$state = $state;
-        debugger;
         this.tarefa = Session.tarefa;
         this.produtos = ProducaoModel.list;
     }
@@ -3064,6 +3063,7 @@ var ProdutoController = function () {
         key: 'save',
         value: function save() {
             this.ProducaoModel.queue(this.produto);
+            var prod = this.Storage.get('producao');
             this.Storage.save('producao', this.ProducaoModel.list);
             this.$state.go('producao');
         }
@@ -3103,7 +3103,7 @@ exports.default = ProdutoController;
 Object.defineProperty(exports, "__esModule", {
     value: true
 });
-exports.default = "<ion-view title=\"Produção\">\n    <ion-nav-buttons side=\"right\">\n    </ion-nav-buttons>\n    \n    <div class=\"tabs tabs-striped tabs-top tabs-balanced\">\n        <a ui-sref=\"cenarios\" ui-sref-active=\"active\" class=\"tab-item\">\n            Cenários\n        </a>\n        <a ui-sref=\"recursos\" ui-sref-active=\"active\" class=\"tab-item\">\n            Recursos\n        </a>\n        <a ui-sref=\"producao\" ui-sref-active=\"active\" class=\"tab-item\">\n            Produção\n        </a>\n    </div>\n\n    <ion-content overflow-scroll=\"true\" padding=\"'true'\" class=\"has-header has-tabs-top\">\n        \n        <ion-list>\n            <ion-item ng-click=\"ProducaoCtrl.go()\" class=\"item-icon-left\">\n                <i class=\"icon ion-plus-circled\"></i>\n                Novo produto\n            </ion-item>\n            \n            <ion-item class=\"item-divider\">\n            Produtos\n            </ion-item>\n            \n            <ion-item class=\"item-thumbnail-left\" \n                ng-click=\"ProducaoCtrl.go(produto)\"\n                ng-repeat=\"produto in ProducaoCtrl.produtos\">\n                <div class=\"item item-divider\">\n                    {{::produto.Identificadores}}\n                </div>\n            </ion-item>\n        </ion-list>\n    </ion-content>\n    \n    <!--\n    <ion-footer-bar class=\"row\" ng-show=\"RecursosCtrl.levantamentos\">\n        <div class=\"col\"></div>\n        <div class=\"col\">\n            <button  class=\"button button-balanced button-outline button-block\">Confirmar</a>\n        </div>\n    </ion-footer-bar>\n    -->\n</ion-view>";
+exports.default = "<ion-view title=\"Produção\">\n    <ion-nav-buttons side=\"right\">\n    </ion-nav-buttons>\n    \n    <div class=\"tabs tabs-striped tabs-top tabs-balanced\">\n        <a ui-sref=\"cenarios\" ui-sref-active=\"active\" class=\"tab-item\">\n            Cenários\n        </a>\n        <a ui-sref=\"recursos\" ui-sref-active=\"active\" class=\"tab-item\">\n            Recursos\n        </a>\n        <a ui-sref=\"producao\" ui-sref-active=\"active\" class=\"tab-item\">\n            Produção\n        </a>\n    </div>\n\n    <ion-content overflow-scroll=\"true\" padding=\"'true'\" class=\"has-header has-tabs-top\">\n        \n        <ion-list>\n            <ion-item ng-click=\"ProducaoCtrl.go()\" class=\"item-icon-left\">\n                <i class=\"icon ion-plus-circled\"></i>\n                Novo produto\n            </ion-item>\n            \n            <ion-item class=\"item-divider\">\n            Produtos\n            </ion-item>\n            \n            <ion-item class=\"item-thumbnail-left\" \n                ng-click=\"ProducaoCtrl.go(produto)\"\n                ng-repeat=\"produto in ProducaoCtrl.produtos\">\n                <div class=\"item item-divider\">\n                    {{produto.Identificadores}}\n                </div>\n            </ion-item>\n        </ion-list>\n    </ion-content>\n    \n    <!--\n    <ion-footer-bar class=\"row\" ng-show=\"RecursosCtrl.levantamentos\">\n        <div class=\"col\"></div>\n        <div class=\"col\">\n            <button  class=\"button button-balanced button-outline button-block\">Confirmar</a>\n        </div>\n    </ion-footer-bar>\n    -->\n</ion-view>";
 
 },{}],36:[function(require,module,exports){
 "use strict";

@@ -29,6 +29,7 @@ export default class ProdutoController {
     }
     save() {
         this.ProducaoModel.queue(this.produto);
+        let prod = this.Storage.get('producao');
         this.Storage.save('producao', this.ProducaoModel.list);
         this.$state.go('producao');
     }

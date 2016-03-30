@@ -1,6 +1,6 @@
 export const URLs = {
 	// services: 'http://localhost:4720', 
-	services: 'https://fatoresweb.azurewebsites.net/api/v1',
+	services: 'http://fatoresweb.azurewebsites.net/api/v1',
 	endpoints: {
 		token: '/token',
 		empresas: '/empresa',

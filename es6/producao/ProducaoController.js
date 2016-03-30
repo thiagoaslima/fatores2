@@ -1,7 +1,6 @@
 export default class ProducaoController {
     constructor($state, Session, ProducaoModel) {
         this.$state = $state;
-        debugger;
         this.tarefa = Session.tarefa;
         this.produtos = ProducaoModel.list;
     }

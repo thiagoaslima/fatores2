@@ -30,7 +30,7 @@ export default `<ion-view title="Produção">
                 ng-click="ProducaoCtrl.go(produto)"
                 ng-repeat="produto in ProducaoCtrl.produtos">
                 <div class="item item-divider">
-                    {{::produto.Identificadores}}
+                    {{produto.Identificadores}}
                 </div>
             </ion-item>
         </ion-list>
