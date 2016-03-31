@@ -2494,7 +2494,7 @@ var ProdutoEntity = exports.ProdutoEntity = function ProdutoEntity() {
     _classCallCheck(this, ProdutoEntity);
 
     var date = new Date();
-    this.Id = parseInt('{date.getFullYear()}{date.getMonths()}{date.getDate()}{date.getHours()}{date.getMinutes()}{++_id}', 10);
+    this.Id = parseInt('' + date.getFullYear() + date.getMonth() + date.getDate() + date.getHours() + date.getMinutes() + ++_id, 10);
     this.QS1 = QS1;
     this.QS2 = QS2;
     this.QS3 = QS3;
@@ -2508,6 +2508,7 @@ var ProdutoEntity = exports.ProdutoEntity = function ProdutoEntity() {
     this.Comentario = Comentario;
     this.Atributos = Atributos;
     this.selecteds = {};
+    console.warn('' + date.getFullYear() + date.getMonth() + date.getDate() + date.getHours() + date.getMinutes() + ++_id, this.Id, _id);
 };
 
 var ProducaoModel = exports.ProducaoModel = function (_BasicModel) {
@@ -2531,6 +2532,7 @@ var ProducaoModel = exports.ProducaoModel = function (_BasicModel) {
     _createClass(ProducaoModel, [{
         key: 'init',
         value: function init() {
+            this.start = new Date().getTime();
             this._list = [];
             this._map = {};
         }
@@ -2573,19 +2575,39 @@ var ProducaoModel = exports.ProducaoModel = function (_BasicModel) {
         key: 'create',
         value: function create(item) {
             var produto = new this._model(item);
+            produto.sessionKey = this.start;
             if (this._map[produto.Id] === undefined) {
                 this._map[produto.Id] = produto;
                 this._list.push(produto);
             } else {
                 this._map[produto.Id] = (0, _object2.default)(this._map[produto.Id], produto);
             }
-            this.Storage.save(this.type, this.list);
+            this.saveItem(this._map[produto.Id]);
             return this._map[produto.Id];
         }
     }, {
         key: 'old',
         value: function old() {
-            return this.Storage.get(this.type) || [];
+            var storage = this.Storage.get(this.type) || {};
+            return Object.keys(storage).reduce(function (agg, key) {
+                agg.push.apply(agg, _toConsumableArray(storage[key]));
+                return agg;
+            }, []);
+        }
+    }, {
+        key: 'saveItem',
+        value: function saveItem(item) {
+            var storage = this.Storage.get(this.type);
+            storage[this.start] = storage[this.start] || [];
+            storage[this.start].push(item);
+            this.Storage.save(this.type, storage);
+        }
+    }, {
+        key: 'saveList',
+        value: function saveList(itens) {
+            var storage = this.Storage.get(this.type);
+            storage[this.start] = itens;
+            this.Storage.save(this.type, storage);
         }
     }, {
         key: 'post',
@@ -2610,9 +2632,13 @@ var ProducaoModel = exports.ProducaoModel = function (_BasicModel) {
                 }).then(function (resp) {
                     var storage = _this4.Storage.get(_this4.type);
                     if (resp.status === 201 || resp.status === 500 && resp.data.InnerException.InnerException.ExceptionMessage.indexOf('Cannot insert duplicate key row')) {
-                        _this4.Storage.save(_this4.type, storage.filter(function (stor) {
+                        storage[item.sessionKey] = storage[item.sessionKey].filter(function (stor) {
                             return stor.Id !== item.Id;
-                        }));
+                        });
+                        if (storage[item.sessionKey].length === 0) {
+                            delete storage[item.sessionKey];
+                        }
+                        _this4.Storage.save(_this4.type, storage);
                     }
                 }).catch(function (err) {
                     var storage = _this4.Storage.get(_this4.type);
@@ -3063,8 +3089,7 @@ var ProdutoController = function () {
         key: 'save',
         value: function save() {
             this.ProducaoModel.queue(this.produto);
-            var prod = this.Storage.get('producao');
-            this.Storage.save('producao', this.ProducaoModel.list);
+            this.ProducaoModel.saveList(this.ProducaoModel.list);
             this.$state.go('producao');
         }
     }, {

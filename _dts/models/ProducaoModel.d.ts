@@ -32,12 +32,15 @@ export declare class ProdutoEntity {
 }
 export declare class ProducaoModel extends BasicModel {
     protected $httpParamSerializer: any;
+    protected start: any;
     constructor(...args: any[]);
     init(): void;
     cancel(produto: any): BasicModel;
     fetch(): any;
     queue(itens: Array<fatores.entidades.ProtoEntity>): BasicModel;
     create(item: any): any;
-    old(): any;
+    old(): any[];
+    saveItem(item: any): void;
+    saveList(itens: any): void;
     post(items: any, time: any): any;
 }

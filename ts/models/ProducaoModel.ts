@@ -36,7 +36,7 @@ export class ProdutoEntity {
         Atributos = []
     } = {}) {
         const date = new Date();
-        this.Id = parseInt(`{date.getFullYear()}{date.getMonths()}{date.getDate()}{date.getHours()}{date.getMinutes()}{++_id}`, 10);
+        this.Id = parseInt(`${date.getFullYear()}${date.getMonth()}${date.getDate()}${date.getHours()}${date.getMinutes()}${++_id}`, 10);
         this.QS1 = QS1;
         this.QS2 = QS2;
         this.QS3 = QS3;
@@ -50,12 +50,15 @@ export class ProdutoEntity {
         this.Comentario = Comentario;
         this.Atributos = Atributos;
         this.selecteds = {};
+        
+        console.warn(`${date.getFullYear()}${date.getMonth()}${date.getDate()}${date.getHours()}${date.getMinutes()}${++_id}`, this.Id, _id);
     }
 
 }
 
 export class ProducaoModel extends BasicModel {
     protected $httpParamSerializer;
+    protected start;
     
     constructor(...args) {
         super('producao', URLs.endpoints.producao, ProdutoEntity, ...args);
@@ -63,6 +66,7 @@ export class ProducaoModel extends BasicModel {
     }
     
     init():void {
+        this.start = new Date().getTime();
         this._list = [];
 		this._map = {};
     }
@@ -96,6 +100,7 @@ export class ProducaoModel extends BasicModel {
 
     create(item) {
         let produto = new this._model(item);
+        produto.sessionKey = this.start;
 
         if (this._map[produto.Id] === undefined) {
             this._map[produto.Id] = produto;
@@ -104,12 +109,29 @@ export class ProducaoModel extends BasicModel {
             this._map[produto.Id] = assign(this._map[produto.Id], produto);
         }
 
-        this.Storage.save(this.type, this.list);
+        this.saveItem(this._map[produto.Id]);
         return this._map[produto.Id];
     }
 
     old() {
-        return this.Storage.get(this.type) || [];
+        const storage = this.Storage.get(this.type) || {};
+        return Object.keys(storage).reduce( (agg, key) => {
+            agg.push(...storage[key]);
+            return agg;
+        }, []);
+    }
+    
+    saveItem(item) {
+        let storage = this.Storage.get(this.type);
+        storage[this.start] = storage[this.start] ||  [];
+        storage[this.start].push(item);
+        this.Storage.save(this.type, storage);
+    }
+    
+    saveList(itens) {
+        let storage = this.Storage.get(this.type);
+        storage[this.start] = itens;
+        this.Storage.save(this.type, storage);
     }
 
     post(items, time) {
@@ -136,7 +158,13 @@ export class ProducaoModel extends BasicModel {
                     const storage = this.Storage.get(this.type);
                     
                     if (resp.status === 201 || (resp.status === 500 && resp.data.InnerException.InnerException.ExceptionMessage.indexOf('Cannot insert duplicate key row') )) {
-                        this.Storage.save(this.type, storage.filter(stor => stor.Id !== item.Id));    
+                        storage[item.sessionKey] = storage[item.sessionKey].filter(stor => stor.Id !== item.Id);
+                        
+                        if(storage[item.sessionKey].length === 0) {
+                            delete(storage[item.sessionKey]);    
+                        }
+                        
+                        this.Storage.save(this.type, storage);  
                     }
                 })
                 .catch(err => {
