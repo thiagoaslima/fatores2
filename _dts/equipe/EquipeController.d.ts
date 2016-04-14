@@ -5,7 +5,7 @@ declare class EquipeController {
     protected showForm: any;
     protected membro: any;
     protected equipe: any;
-    constructor(Session: any, FuncaoModel: any);
+    constructor($ionicHistory: any, Session: any, FuncaoModel: any);
     init(): void;
     openForm(funcao: any): void;
     closeForm(): void;

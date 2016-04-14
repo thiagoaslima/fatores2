@@ -1,5 +1,5 @@
 export default `<ion-view title="Recursos">
-    <ion-nav-buttons side="right">
+    <ion-nav-buttons side="right" hide-back-button="true">
         <button class="icon button button-balanced ion-android-send" 
             ng-click="RecursosCtrl.endSession($event)"></button>
     </ion-nav-buttons>
@@ -19,18 +19,18 @@ export default `<ion-view title="Recursos">
     <ion-content overflow-scroll="true" padding="'true'" class="has-header has-tabs-top">
         
         <ion-list>
-            <ion-item class="item-thumbnail-left" 
-                ng-if="atividade.Membros.length" 
-                ng-repeat="atividade in RecursosCtrl.atividades">
+            <ion-item ng-if="atividade.Membros.length" ng-repeat="atividade in RecursosCtrl.atividades">
                 <div class="item item-divider" ng-click="RecursosCtrl.mudarAtividade(atividade.Membros)">
                     {{::atividade.Nome}}
                 </div>
                 <img>
-                <ion-list type="list-inset" ng-repeat="membro in atividade.Membros">
+                <ion-list type="list-inset" class="item item-icon-right" 
+                    ng-repeat="membro in atividade.Membros">
                     <div ng-click="RecursosCtrl.mudarAtividade([membro])">
                         <h2>{{::membro.Nome}}</h2>
                         <small>{{::membro.Funcao.Nome}}</small>
                     </div>
+                    <span ng-click="RecursosCtrl.go(membro)" class="icon ion-android-textsms"></a>
                 </ion-list>
             </ion-item>
         </ion-list>

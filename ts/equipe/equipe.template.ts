@@ -1,6 +1,6 @@
 export default `
 <ion-view title="Equipe">
-    <ion-nav-buttons side="right">
+    <ion-nav-buttons side="right" hide-back-button="true">
         <a ui-sref="recursos" class="icon button button-balanced ion-checkmark" ng-show="EquipeCtrl.equipe.length"></a>
     </ion-nav-buttons>
 

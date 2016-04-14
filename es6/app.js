@@ -62,7 +62,7 @@ angular
     'AtividadeModel',
     'AtividadeTarefaModel',
     ConfigurationController])
-    .controller('EquipeController', ['Session', 'FuncaoModel', EquipeController])
+    .controller('EquipeController', ['$ionicHistory', 'Session', 'FuncaoModel', EquipeController])
     .controller('RecursosController', ['$q', '$state', '$scope', '$ionicPopup', 'Session', 'AtividadeModel', 'LevantamentoModel', 'CenarioDiaModel', 'ProducaoModel', RecursosController])
     .controller('AtividadesController', ['$state', 'Session', 'AtividadeModel', 'LevantamentoModel', AtividadesController])
     .controller('CenariosController', ['$scope', '$state', 'Session', 'CenarioModel', 'CenarioValorModel', 'CenarioDiaModel', CenariosController])

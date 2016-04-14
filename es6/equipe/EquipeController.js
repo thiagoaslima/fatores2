@@ -25,13 +25,17 @@ class Membro {
     }
 }
 class EquipeController {
-    constructor(Session, FuncaoModel) {
+    constructor($ionicHistory, Session, FuncaoModel) {
         this.Session = Session;
         this.FuncaoModel = FuncaoModel;
         this.funcoes = [];
         this.equipe = this.Session.equipe;
         this.showForm = false;
         this.membro = {};
+        $ionicHistory.nextViewOptions({
+            disableBack: true,
+            historyRoot: true
+        });
         this.init();
     }
     init() {

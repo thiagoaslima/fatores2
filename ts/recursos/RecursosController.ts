@@ -75,6 +75,10 @@ export default class RecursosController {
         });
         this.equipe = Session.equipe;
     }
+    
+    go(membro) {
+        return this.$state.go('comentario', {id: membro.Id});
+    }
 
     mudarAtividade(membros) {
         membros.forEach(membro => membro.select());

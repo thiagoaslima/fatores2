@@ -11,6 +11,7 @@ export default class RecursosController {
     levantamentos: any;
     popup: any;
     constructor($q: any, $state: any, $scope: any, $ionicPopup: any, Session: any, AtividadeModel: any, LevantamentoModel: any, CenarioDiaModel: any, ProducaoModel: any);
+    go(membro: any): any;
     mudarAtividade(membros: any): void;
     send(time: any): {
         levantamentos: any;

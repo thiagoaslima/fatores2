@@ -1,5 +1,5 @@
 export default `<ion-view title="Configuração">
-    <ion-nav-buttons side="right">
+    <ion-nav-buttons side="right" hide-back-button="true">
         <button class="icon button button-balanced ion-checkmark" 
             ng-show="ConfigCtrl.selected.tarefa"
             ng-click="ConfigCtrl.save($event)"></button>
